@@ -1,0 +1,1217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D5 Render Certification Mock Exam</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#000000;
+      --muted:#333333;
+      --orange:#f97316;
+      --orange-dark:#ea580c;
+      --line:#f97316;
+      --ok:#16a34a;
+      --bad:#dc2626;
+      --miss:#6b7280;
+      --panel:#fff;
+      --shadow: 0 8px 20px rgba(0,0,0,.12);
+    }
+    *{ box-sizing:border-box; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    body{ margin:0; background:var(--bg); color:var(--text); }
+    .wrap{ max-width: 980px; margin: 0 auto; padding: 20px 16px 30px; }
+
+    header{
+      display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--line);
+      margin-bottom: 16px;
+    }
+    h1{ margin:0; font-size:22px; font-weight:800; }
+    .sub{ margin-top:6px; color:var(--muted); font-size:13px; }
+
+    /* === Logo additions (safe, isolated) === */
+    .header-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .header-logo-link{
+      display:inline-flex;
+      align-items:center;
+      text-decoration:none;
+    }
+    .header-logo{
+      height:128px;
+      width:auto;
+      display:block;
+    }
+
+    .timer-float{
+      position: fixed;
+      right: 16px;
+      top: 16px;
+      z-index: 9999;
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+      font-variant-numeric: tabular-nums;
+      min-width: 120px;
+      text-align:center;
+      display:none;
+    }
+    .timer-float .label{ font-size:11px; color:var(--muted); margin-bottom:4px; }
+    .timer-float .time{ font-size:16px; font-weight:900; }
+
+    .card{
+      background:var(--panel);
+      border:2px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; }
+    label{ display:block; font-size:13px; color:var(--muted); margin:10px 0 6px; }
+    input[type="text"], input[type="email"], select{
+      width:100%; padding:10px 12px; border-radius:10px; border:2px solid var(--line); outline:none;
+      background:#fff; color:var(--text);
+    }
+    .field{ flex:1; min-width:220px; }
+
+    .btn{
+      border:2px solid var(--line);
+      background: var(--orange);
+      color:#fff;
+      padding:10px 12px;
+      border-radius: 10px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:13px;
+      text-decoration:none;
+      display:inline-block;
+      user-select:none;
+    }
+    .btn:hover{ background: var(--orange-dark); border-color: var(--orange-dark); }
+    .btn.secondary{
+      background:#fff;
+      color: var(--orange);
+    }
+    .btn.secondary:hover{ background:#fff7ed; }
+    .btn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+
+    .divider{ height:2px; background: var(--line); margin: 14px 0; }
+
+    .q{
+      border-top: 2px solid var(--line);
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+    .q:first-child{ border-top:none; padding-top:0; margin-top:0; }
+    .q-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+    .q-num{ font-weight:900; }
+    .q-type{ font-size:12px; color:var(--muted); }
+    .q-text{ margin:8px 0 10px; line-height:1.45; white-space:pre-wrap; }
+
+    .q-media{ margin:10px 0 12px; }
+    .q-media img{
+      max-width:100%;
+      border:2px solid var(--line);
+      border-radius:12px;
+      display:block;
+    }
+
+    .choices{ display:flex; gap:10px; flex-wrap:wrap; }
+    .choice{
+      border:2px solid var(--line);
+      background:#fff;
+      padding:10px 12px;
+      border-radius: 12px;
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
+      cursor:pointer;
+      user-select:none;
+      max-width: 100%;
+    }
+    .choice span{ display:inline-block; white-space:pre-wrap; }
+    .choice input{ cursor:pointer; margin-top:2px; }
+    .choice.long{ width:100%; }
+
+    .navRow{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 14px;
+    }
+    .pageInfo{ font-size:13px; color: var(--muted); font-weight:700; }
+
+    .results{
+      border:2px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background:#fff;
+    }
+    .scoreBig{ font-size:20px; font-weight:900; margin-top:6px; }
+    .muted{ color: var(--muted); font-size:13px; line-height:1.45; }
+    .ok{ color: var(--ok); font-weight:900; }
+    .bad{ color: var(--bad); font-weight:900; }
+    .miss{ color: var(--miss); font-weight:900; }
+    .resultLine{ margin-top:10px; font-size:13px; }
+
+    table{ width:100%; border-collapse:collapse; font-size:13px; }
+    th, td{ padding:8px; border-bottom:2px solid var(--line); vertical-align:top; }
+    th{ text-align:left; font-weight:900; }
+
+    footer{
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 2px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .hidden{ display:none !important; }
+
+    .modeGrid{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px; }
+    @media (max-width:720px){ .modeGrid{ grid-template-columns: 1fr; } }
+
+    .modeCard{
+      border:2px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background:#fff;
+      position:relative;
+      cursor:pointer;
+      user-select:none;
+    }
+    .modeCard:hover{ background:#fff7ed; }
+    .modeCard.selected{ outline:3px solid var(--orange); outline-offset:2px; }
+    .modeTop{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .modeTitle{ font-weight:900; }
+    .modeHint{ font-size:12px; color:var(--muted); }
+
+    .tooltipBox{
+      position:absolute;
+      left:12px; right:12px;
+      top: calc(100% + 10px);
+      background:#fff;
+      border:2px solid var(--line);
+      border-radius:12px;
+      padding:10px;
+      box-shadow: var(--shadow);
+      color: var(--text);
+      z-index: 50;
+      display:none;
+      font-size:12px;
+      line-height:1.45;
+    }
+    .modeCard:hover .tooltipBox{ display:block; }
+    .tooltipBox b{ color: var(--orange-dark); }
+
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border:2px solid var(--line);
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      color: var(--orange-dark);
+      background:#fff7ed;
+    }
+
+    .topRowMeta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .notice{
+      border:2px dashed var(--line);
+      border-radius:14px;
+      padding:12px;
+      background:#fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="timer-float" id="timerFloat" aria-live="polite">
+    <div class="label" id="timerLabel">TIMER</div>
+    <div class="time" id="timer">00:00</div>
+  </div>
+
+  <div class="wrap">
+    <header>
+      <div class="header-left">
+        <a class="header-logo-link" href="https://mog-academy.com" target="_blank" rel="noopener">
+          <img src="images/logo.png" alt="Mo.G Academy" class="header-logo" />
+        </a>
+
+        <div>
+          <h1>D5 Render Certification Mock Exam</h1>
+          <div class="sub" id="statusText">Status: Not started</div>
+        </div>
+      </div>
+
+      <div class="pill" id="setPill">No set loaded</div>
+    </header>
+
+    <div class="card" id="setupCard">
+      <div class="row">
+        <div class="field">
+          <label for="name">Enter your name</label>
+          <input id="name" type="text" placeholder="Full name" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="email">Enter your email</label>
+          <input id="email" type="email" placeholder="name@email.com" autocomplete="email" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div class="field">
+          <label for="setSelect">Select question set</label>
+          <select id="setSelect">
+            <option value="">Loading sets...</option>
+          </select>
+          <div class="sub" style="margin-top:8px;">
+            
+          </div>
+        </div>
+        <div style="min-width:180px;">
+          <button class="btn" id="loadSetBtn" style="width:100%;">Load set</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="font-weight:900;">Choose mode</div>
+      <div class="modeGrid" id="modeGrid">
+        <div class="modeCard" data-mode="timed" tabindex="0" role="button" aria-label="Timed test">
+          <div class="modeTop">
+            <div class="modeTitle">Timed test (30 minutes)</div>
+            <div class="modeHint">Auto-submits at 30:00</div>
+          </div>
+          <div class="tooltipBox">
+            <b>Timed test:</b> the timer stops at <b>30:00</b> and the exam will <b>submit automatically</b> when time ends.
+          </div>
+        </div>
+
+        <div class="modeCard" data-mode="untimed" tabindex="0" role="button" aria-label="Non-timed test">
+          <div class="modeTop">
+            <div class="modeTitle">Non-timed test</div>
+            <div class="modeHint">Timer keeps going</div>
+          </div>
+          <div class="tooltipBox">
+            <b>Non-timed:</b> the timer continues beyond <b>30 minutes</b>. You can submit whenever you want.
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="row" style="align-items:center;">
+        <div class="muted" style="flex:1;">
+          Questions will only appear after you click <b>Start test</b>.
+        </div>
+        <div style="min-width:180px;">
+          <button class="btn" id="startBtn" style="width:100%;" disabled>Start test</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card hidden" id="questionsCard">
+      <div class="topRowMeta">
+        <div class="muted"><b>Mode:</b> <span id="modeText">-</span> · <b>Set:</b> <span id="setText">-</span></div>
+        <div class="pill" id="countPill">0 questions</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div id="testArea"></div>
+
+      <div class="navRow">
+        <button class="btn secondary" id="prevBtn" disabled>Previous page</button>
+        <div class="pageInfo" id="pageInfo">Page 1 of 1</div>
+        <button class="btn secondary" id="nextBtn" disabled>Next page</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="navRow" style="justify-content:flex-end;">
+        <button class="btn" id="submitBtn" disabled>Submit answers</button>
+        <button class="btn secondary" id="redoBtn" disabled>Re-do test</button>
+      </div>
+    </div>
+
+    <div class="results" id="resultsArea">
+      <div class="muted">
+        1) Select a question set, load it.<br>
+        2) Choose timed or non-timed mode.<br>
+        3) Click <b>Start test</b>.
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="row" style="justify-content:space-between; align-items:center;">
+        <div style="font-weight:900;">Attempt history (saved on this computer)</div>
+        <button class="btn secondary hidden" id="sendBtn" type="button">Email result to instructor</button>
+      </div>
+
+      <div class="notice hidden" id="sendNotice" style="margin-top:10px;">
+        <div style="font-weight:900; margin-bottom:6px;">Result sending is not configured yet.</div>
+        <div class="muted">
+          This page is hosted on <b>GitHub Pages</b> (static hosting). To email results automatically, you must use a third-party form endpoint
+          (example: Formspree / Getform / Basin) and paste the endpoint URL in the code (search for <b>FORM_ENDPOINT</b>).
+        </div>
+      </div>
+
+      <div style="margin-top:10px" id="historyArea" class="muted">No attempts yet.</div>
+      <div class="divider"></div>
+      <div class="row" style="justify-content:space-between; align-items:center;">
+        <button class="btn secondary" id="clearHistoryBtn">Clear history</button>
+        <div class="muted">© Mo.G Academy</div>
+      </div>
+    </div>
+
+    <footer>
+      <div>© Mo.G Academy</div>
+      <div class="muted">D5 Render Certification Mock Exam</div>
+    </footer>
+  </div>
+
+<script>
+  const GITHUB_OWNER = "Mog-academy"; // e.g. "Mog-academy"
+  const GITHUB_REPO  = "D5_Mock_exam"; // e.g. "D5_Mock_exam"
+  const FORM_ENDPOINT = "https://formspree.io/f/xvzzpeyr"; // e.g. "https://formspree.io/f/xxxxxxx"
+  const INSTRUCTOR_EMAIL_DOMAIN_NOTE = "hello@mog-academy.com";
+
+  const PER_PAGE = 5;
+  const MAX_TIMED_MINUTES = 30;
+
+  function escapeAttr(str){
+    return String(str)
+      .replaceAll("&","&amp;")
+      .replaceAll("\"","&quot;")
+      .replaceAll("'","&#39;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;");
+  }
+  function unescapeAttr(str){
+    return String(str)
+      .replaceAll("&quot;","\"")
+      .replaceAll("&#39;","'")
+      .replaceAll("&lt;","<")
+      .replaceAll("&gt;",">")
+      .replaceAll("&amp;","&");
+  }
+
+  function pad2(n){ return String(n).padStart(2,"0"); }
+  function formatTime(ms){
+    const totalSec = Math.floor(ms / 1000);
+    const m = Math.floor(totalSec / 60);
+    const s = totalSec % 60;
+    return `${pad2(m)}:${pad2(s)}`;
+  }
+
+  const UI = {
+    statusText: document.getElementById("statusText"),
+    setPill: document.getElementById("setPill"),
+    name: document.getElementById("name"),
+    email: document.getElementById("email"),
+    setSelect: document.getElementById("setSelect"),
+    loadSetBtn: document.getElementById("loadSetBtn"),
+    startBtn: document.getElementById("startBtn"),
+    modeGrid: document.getElementById("modeGrid"),
+    modeText: document.getElementById("modeText"),
+    setText: document.getElementById("setText"),
+    countPill: document.getElementById("countPill"),
+    timerFloat: document.getElementById("timerFloat"),
+    timerLabel: document.getElementById("timerLabel"),
+    timer: document.getElementById("timer"),
+    questionsCard: document.getElementById("questionsCard"),
+    testArea: document.getElementById("testArea"),
+    prevBtn: document.getElementById("prevBtn"),
+    nextBtn: document.getElementById("nextBtn"),
+    pageInfo: document.getElementById("pageInfo"),
+    submitBtn: document.getElementById("submitBtn"),
+    redoBtn: document.getElementById("redoBtn"),
+    resultsArea: document.getElementById("resultsArea"),
+    historyArea: document.getElementById("historyArea"),
+    clearHistoryBtn: document.getElementById("clearHistoryBtn"),
+    sendBtn: document.getElementById("sendBtn"),
+    sendNotice: document.getElementById("sendNotice"),
+  };
+
+  let QUESTIONS = [];
+  let ANSWER_KEY = {};
+  let currentSetFile = "";
+  let currentSetTitle = "";
+
+  let currentPage = 0;
+  let startedAt = null;
+  let timerInterval = null;
+  let elapsedMs = 0;
+  let submitted = false;
+  let mode = null;
+  let totalPages = 1;
+
+  const userAnswers = {};
+
+  function setStatus(text){ UI.statusText.textContent = `Status: ${text}`; }
+
+  function requireIdentity(){
+    const name = UI.name.value.trim();
+    const email = UI.email.value.trim();
+    if (!name || !email){ alert("Please enter your name and email first."); return null; }
+    if (!/^\S+@\S+\.\S+$/.test(email)){ alert("Please enter a valid email."); return null; }
+    return { name, email };
+  }
+
+  function startTimer(){
+    if (timerInterval) clearInterval(timerInterval);
+    startedAt = Date.now();
+    UI.timerFloat.style.display = "block";
+
+    timerInterval = setInterval(() => {
+      elapsedMs = Date.now() - startedAt;
+
+      if (mode === "timed"){
+        const maxMs = MAX_TIMED_MINUTES * 60 * 1000;
+        if (elapsedMs >= maxMs){
+          elapsedMs = maxMs;
+          UI.timer.textContent = formatTime(elapsedMs);
+          stopTimer();
+          if (!submitted){
+            submitNow(true);
+          }
+          return;
+        }
+      }
+      UI.timer.textContent = formatTime(elapsedMs);
+    }, 250);
+  }
+
+  function stopTimer(){
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  function resetAll(keepLoadedSet=true){
+    for (const q of QUESTIONS) delete userAnswers[q.id];
+
+    currentPage = 0;
+    startedAt = null;
+    stopTimer();
+    elapsedMs = 0;
+    UI.timer.textContent = "00:00";
+    UI.timerFloat.style.display = "none";
+    submitted = false;
+
+    UI.name.disabled = false;
+    UI.email.disabled = false;
+    UI.setSelect.disabled = false;
+    UI.loadSetBtn.disabled = false;
+
+    UI.startBtn.disabled = !(mode && QUESTIONS.length);
+
+    UI.submitBtn.disabled = true;
+    UI.redoBtn.disabled = true;
+
+    UI.prevBtn.disabled = true;
+    UI.nextBtn.disabled = true;
+
+    UI.questionsCard.classList.add("hidden");
+
+    UI.sendBtn.classList.add("hidden");
+    UI.sendNotice.classList.add("hidden");
+
+    setStatus("Not started");
+
+    UI.resultsArea.innerHTML = `
+      <div class="muted">
+        1) Select a question set, load it.<br>
+        2) Choose timed or non-timed mode.<br>
+        3) Click <b>Start test</b>.
+      </div>
+    `;
+
+    if (!keepLoadedSet){
+      QUESTIONS = [];
+      ANSWER_KEY = {};
+      currentSetFile = "";
+      currentSetTitle = "";
+      UI.setPill.textContent = "No set loaded";
+      UI.setText.textContent = "-";
+      UI.countPill.textContent = "0 questions";
+    } else {
+      updateSetUI();
+    }
+
+    renderPage();
+  }
+
+  function updateSetUI(){
+    UI.setPill.textContent = currentSetTitle ? `Set: ${currentSetTitle}` : (currentSetFile ? `Set: ${currentSetFile}` : "No set loaded");
+    UI.setText.textContent = currentSetTitle || currentSetFile || "-";
+    UI.countPill.textContent = `${QUESTIONS.length} questions`;
+    totalPages = Math.max(1, Math.ceil(QUESTIONS.length / PER_PAGE));
+    UI.pageInfo.textContent = `Page 1 of ${totalPages}`;
+  }
+
+  function pageSlice(pageIndex){
+    const start = pageIndex * PER_PAGE;
+    return QUESTIONS.slice(start, start + PER_PAGE);
+  }
+
+  function renderPage(){
+    UI.testArea.innerHTML = "";
+    if (!QUESTIONS.length){
+      UI.pageInfo.textContent = "Page 1 of 1";
+      UI.prevBtn.disabled = true;
+      UI.nextBtn.disabled = true;
+      UI.submitBtn.disabled = true;
+      return;
+    }
+
+    const slice = pageSlice(currentPage);
+
+    slice.forEach(q => {
+      const wrap = document.createElement("div");
+      wrap.className = "q";
+
+      let typeLabel = "Single Choice";
+      if (q.type === "tf") typeLabel = "True or False";
+      if (q.type === "multi") typeLabel = "Multiple Choice";
+
+      const head = document.createElement("div");
+      head.className = "q-head";
+      head.innerHTML = `
+        <div class="q-num">${q.id}.</div>
+        <div class="q-type">${typeLabel}</div>
+      `;
+
+      const text = document.createElement("div");
+      text.className = "q-text";
+      text.textContent = q.text;
+
+      wrap.appendChild(head);
+      wrap.appendChild(text);
+
+      if (q.image){
+        const media = document.createElement("div");
+        media.className = "q-media";
+        const img = document.createElement("img");
+        img.alt = `Question ${q.id} image`;
+        img.src = q.image;
+        media.appendChild(img);
+        wrap.appendChild(media);
+      }
+
+      const choices = document.createElement("div");
+      choices.className = "choices";
+
+      q.options.forEach(opt => {
+        const lbl = document.createElement("label");
+        const isLong = opt.length > 70;
+        lbl.className = "choice" + (isLong ? " long" : "");
+        const v = escapeAttr(opt);
+
+        if (q.type === "multi"){
+          lbl.innerHTML = `
+            <input type="checkbox" name="q${q.id}" value="${v}" />
+            <span>${opt}</span>
+          `;
+        } else {
+          lbl.innerHTML = `
+            <input type="radio" name="q${q.id}" value="${v}" />
+            <span>${opt}</span>
+          `;
+        }
+        choices.appendChild(lbl);
+      });
+
+      wrap.appendChild(choices);
+      UI.testArea.appendChild(wrap);
+
+      const saved = userAnswers[q.id];
+      if (q.type === "multi"){
+        const set = (saved instanceof Set) ? saved : new Set();
+        wrap.querySelectorAll(`input[name="q${q.id}"]`).forEach(inp => {
+          const vv = unescapeAttr(inp.value);
+          if (set.has(vv)) inp.checked = true;
+        });
+      } else {
+        if (typeof saved === "string" && saved){
+          wrap.querySelectorAll(`input[name="q${q.id}"]`).forEach(inp => {
+            const vv = unescapeAttr(inp.value);
+            if (vv === saved) inp.checked = true;
+          });
+        }
+      }
+    });
+
+    UI.pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+    UI.prevBtn.disabled = !startedAt || submitted || currentPage === 0;
+    UI.nextBtn.disabled = !startedAt || submitted || currentPage === totalPages - 1;
+    UI.submitBtn.disabled = !startedAt || submitted;
+  }
+
+  function scoreAttempt(){
+    let correctCount = 0;
+    let missedCount = 0;
+
+    const details = QUESTIONS.map(q => {
+      const key = ANSWER_KEY[q.id];
+      const right = key ? key.correct : [];
+      const user = userAnswers[q.id];
+
+      let isMissed = false;
+      if (q.type === "multi"){
+        if (!(user instanceof Set) || user.size === 0) isMissed = true;
+      } else {
+        if (typeof user !== "string" || !user) isMissed = true;
+      }
+      if (isMissed) missedCount++;
+
+      let isCorrect = false;
+      if (!isMissed){
+        if (q.type === "multi"){
+          const userSet = user;
+          const rightSet = new Set(right);
+          isCorrect = (userSet.size === rightSet.size) && [...rightSet].every(v => userSet.has(v));
+        } else {
+          isCorrect = (user === right[0]);
+        }
+      }
+      if (isCorrect) correctCount++;
+
+      const userDisplay = (q.type === "multi")
+        ? ((user instanceof Set && user.size) ? [...user].join(" | ") : null)
+        : (typeof user === "string" && user ? user : null);
+
+      const rightDisplay = (q.type === "multi")
+        ? (right.length ? right.join(" | ") : "")
+        : (right[0] ?? "");
+
+      return { id:q.id, type:q.type, userDisplay, rightDisplay, isCorrect, isMissed };
+    });
+
+    return { correct: correctCount, total: QUESTIONS.length, missed: missedCount, details };
+  }
+
+  function renderResults(scored, autoSubmit=false){
+    const percent = scored.total ? Math.round((scored.correct / scored.total) * 100) : 0;
+    const timeTaken = formatTime(elapsedMs);
+
+    let html = `
+      <div class="muted">${autoSubmit ? "<b>Time is up.</b> Your exam was submitted automatically." : "Score:"}</div>
+      <div class="scoreBig">${scored.correct} / ${scored.total} (${percent}%)</div>
+      <div class="muted" style="margin-top:6px;">Missed: <b>${scored.missed}</b></div>
+      <div class="muted" style="margin-top:6px;">Time taken: <b>${timeTaken}</b></div>
+      <div class="muted" style="margin-top:6px;">Mode: <b>${mode === "timed" ? "Timed (30 minutes)" : "Non-timed"}</b></div>
+      <div class="muted" style="margin-top:6px;">Set: <b>${currentSetTitle || currentSetFile || "-"}</b></div>
+      <div class="divider"></div>
+      <div style="font-weight:900; margin-bottom:8px;">Review</div>
+    `;
+
+    scored.details.forEach(d => {
+      if (d.isCorrect){
+        html += `<div class="resultLine ok">${d.id}. Correct</div>`;
+      } else if (d.isMissed){
+        html += `
+          <div class="resultLine miss">${d.id}. Missed</div>
+          <div class="muted">Correct answer: <b>${d.rightDisplay}</b></div>
+        `;
+      } else {
+        html += `
+          <div class="resultLine bad">${d.id}. Wrong</div>
+          <div class="muted">Your answer: <b>${d.userDisplay}</b></div>
+          <div class="muted">Correct answer: <b>${d.rightDisplay}</b></div>
+        `;
+      }
+    });
+
+    UI.resultsArea.innerHTML = html;
+  }
+
+  function loadHistory(){
+    try{
+      const raw = localStorage.getItem("mog_d5_mock_history_dynamic_v1");
+      return raw ? JSON.parse(raw) : [];
+    }catch{ return []; }
+  }
+
+  function saveHistory(history){
+    localStorage.setItem("mog_d5_mock_history_dynamic_v1", JSON.stringify(history));
+  }
+
+  function serializeAnswers(){
+    const out = {};
+    for (const q of QUESTIONS){
+      const v = userAnswers[q.id];
+      if (v instanceof Set) out[q.id] = [...v];
+      else if (typeof v === "string") out[q.id] = v;
+      else out[q.id] = null;
+    }
+    return out;
+  }
+
+  function renderHistory(){
+    const history = loadHistory();
+    if (!history.length){
+      UI.historyArea.innerHTML = `<div class="muted">No attempts yet.</div>`;
+      return;
+    }
+
+    const rows = history.slice().reverse().map(item => `
+      <tr>
+        <td>${item.when}</td>
+        <td><b>${item.score}</b></td>
+        <td>${item.timeTaken}</td>
+        <td>${item.mode}</td>
+        <td>${item.set}</td>
+      </tr>
+    `).join("");
+
+    UI.historyArea.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Date / time</th>
+            <th>Score</th>
+            <th>Time taken</th>
+            <th>Mode</th>
+            <th>Set</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
+
+  function buildPayload(scored){
+    const name = UI.name.value.trim();
+    const email = UI.email.value.trim();
+    const when = new Date().toISOString();
+    const timeTaken = formatTime(elapsedMs);
+    const scoreStr = `${scored.correct}/${scored.total}`;
+
+    return {
+      student_name: name,
+      student_email: email,
+      when_iso: when,
+      score: scoreStr,
+      missed: scored.missed,
+      time_taken: timeTaken,
+      mode: mode === "timed" ? "Timed (30 minutes)" : "Non-timed",
+      set: currentSetTitle || currentSetFile || "",
+      details: scored.details
+    };
+  }
+
+  async function sendResultToInstructor(scored){
+    if (!FORM_ENDPOINT){
+      UI.sendNotice.classList.remove("hidden");
+      UI.sendNotice.scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
+
+    UI.sendNotice.classList.add("hidden");
+    UI.sendBtn.disabled = true;
+    UI.sendBtn.textContent = "Sending...";
+
+    try{
+      const payload = buildPayload(scored);
+
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type":"application/json", "Accept":"application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok){
+        let msg = "Failed to send. Please try again.";
+        try{
+          const j = await res.json();
+          if (j && j.error) msg = j.error;
+        }catch{}
+        alert(msg);
+      } else {
+        alert(`Sent! Your result was submitted to ${INSTRUCTOR_EMAIL_DOMAIN_NOTE}.`);
+      }
+    } catch(err){
+      alert("Failed to send (network or endpoint issue).");
+    } finally {
+      UI.sendBtn.disabled = false;
+      UI.sendBtn.textContent = "Email result to instructor";
+    }
+  }
+
+  function submitNow(autoSubmit=false){
+    if (!startedAt || submitted) return;
+
+    submitted = true;
+    stopTimer();
+    setStatus("Submitted");
+
+    UI.prevBtn.disabled = true;
+    UI.nextBtn.disabled = true;
+
+    const scored = scoreAttempt();
+    renderResults(scored, autoSubmit);
+
+    const when = new Date().toLocaleString();
+    const timeTaken = formatTime(elapsedMs);
+    const scoreStr = `${scored.correct}/${scored.total}`;
+
+    const history = loadHistory();
+    history.push({
+      when,
+      score: scoreStr,
+      timeTaken,
+      mode: (mode === "timed" ? "Timed" : "Non-timed"),
+      set: (currentSetTitle || currentSetFile || "-"),
+      name: UI.name.value.trim(),
+      email: UI.email.value.trim(),
+      answers: serializeAnswers()
+    });
+    saveHistory(history);
+    renderHistory();
+
+    UI.sendBtn.classList.remove("hidden");
+    UI.sendBtn.onclick = () => sendResultToInstructor(scored);
+
+    UI.submitBtn.disabled = true;
+    UI.redoBtn.disabled = false;
+  }
+
+  async function discoverExamSets(){
+    if (!GITHUB_OWNER || !GITHUB_REPO){
+      return [{ file:"exam_set_1.txt", label:"exam_set_1.txt" }];
+    }
+
+    const api = `https://api.github.com/repos/${encodeURIComponent(GITHUB_OWNER)}/${encodeURIComponent(GITHUB_REPO)}/contents`;
+    const res = await fetch(api, { headers: { "Accept":"application/vnd.github+json" } });
+    if (!res.ok) throw new Error("Could not list repository contents.");
+    const items = await res.json();
+
+    const sets = (items || [])
+      .filter(x => x && x.type === "file" && typeof x.name === "string" && /^exam_set_\d+\.txt$/i.test(x.name))
+      .map(x => {
+        const m = x.name.match(/exam_set_(\d+)\.txt/i);
+        const n = m ? Number(m[1]) : 9999;
+        return { file: x.name, n, label: `Exam set ${n}` };
+      })
+      .sort((a,b) => a.n - b.n);
+
+    return sets.length ? sets : [{ file:"exam_set_1.txt", label:"exam_set_1.txt" }];
+  }
+
+  async function fetchText(path){
+    const res = await fetch(path, { cache: "no-store" });
+    if (!res.ok) throw new Error(`Could not load ${path}`);
+    return await res.text();
+  }
+
+  function parseExamSet(txt){
+    const lines = txt.replace(/\r\n/g,"\n").split("\n");
+    let setTitle = "";
+    const questions = [];
+    const key = {};
+    let cur = null;
+
+    function finalize(){
+      if (!cur) return;
+
+      if (cur.type === "tf" && (!cur.options || !cur.options.length)){
+        cur.options = ["True","False"];
+      }
+
+      if (!cur.id || !cur.type || !cur.text){
+        throw new Error(`Invalid question block (missing Q/TEXT).`);
+      }
+      if (!cur.answerRaw){
+        throw new Error(`Missing ANS for question ${cur.id}.`);
+      }
+
+      if (cur.type === "tf"){
+        key[cur.id] = { type:"tf", correct:[cur.answerRaw.trim()] };
+      } else if (cur.type === "single"){
+        const a = cur.answerRaw.trim();
+        let correctText = null;
+        if (/^[a-z]$/i.test(a)){
+          const idx = a.toLowerCase().charCodeAt(0) - 97;
+          correctText = (cur.options || [])[idx];
+          if (!correctText) throw new Error(`ANS for Q${cur.id} points to a missing option (${a}).`);
+        } else {
+          correctText = a;
+        }
+        key[cur.id] = { type:"single", correct:[correctText] };
+      } else if (cur.type === "multi"){
+        const a = cur.answerRaw.trim();
+        const parts = a.split(",").map(s => s.trim()).filter(Boolean);
+        const correct = parts.map(p => {
+          if (/^[a-z]$/i.test(p)){
+            const idx = p.toLowerCase().charCodeAt(0) - 97;
+            const t = (cur.options || [])[idx];
+            if (!t) throw new Error(`ANS for Q${cur.id} points to a missing option (${p}).`);
+            return t;
+          }
+          return p;
+        });
+        key[cur.id] = { type:"multi", correct };
+      } else {
+        throw new Error(`Unknown question type: ${cur.type}`);
+      }
+
+      questions.push({
+        id: cur.id,
+        type: cur.type,
+        text: cur.text,
+        options: cur.options || [],
+        image: cur.image || null
+      });
+      cur = null;
+    }
+
+    for (let rawLine of lines){
+      const line = rawLine.trimEnd();
+      if (!line) continue;
+
+      const parts = line.split("|");
+      const tag = (parts[0] || "").trim();
+
+      if (tag === "SET_TITLE"){
+        setTitle = (parts.slice(1).join("|") || "").trim();
+        continue;
+      }
+
+      if (tag === "Q"){
+        finalize();
+        const id = Number((parts[1] || "").trim());
+        const type = (parts[2] || "").trim().toLowerCase();
+        cur = { id, type, text:"", options:[], image:null, answerRaw:"" };
+        continue;
+      }
+
+      if (!cur) continue;
+
+      if (tag === "TEXT"){
+        const t = parts.slice(1).join("|");
+        cur.text = (cur.text ? (cur.text + "\n" + t) : t).trim();
+        continue;
+      }
+
+      if (tag === "OPT"){
+        const optText = parts.slice(2).join("|").trim();
+        if (optText) cur.options.push(optText);
+        continue;
+      }
+
+      if (tag === "IMAGE"){
+        const img = parts.slice(1).join("|").trim();
+        if (img) cur.image = img;
+        continue;
+      }
+
+      if (tag === "ANS"){
+        cur.answerRaw = parts.slice(1).join("|").trim();
+        continue;
+      }
+
+      if (tag === "END"){
+        finalize();
+        continue;
+      }
+    }
+
+    finalize();
+    questions.sort((a,b) => a.id - b.id);
+    return { setTitle, questions, key };
+  }
+
+  async function loadSelectedSet(){
+    const file = UI.setSelect.value;
+    if (!file){
+      alert("Please select a set first.");
+      return;
+    }
+
+    UI.loadSetBtn.disabled = true;
+    UI.loadSetBtn.textContent = "Loading...";
+    try{
+      const txt = await fetchText(file);
+      const parsed = parseExamSet(txt);
+
+      QUESTIONS = parsed.questions;
+      ANSWER_KEY = parsed.key;
+      currentSetFile = file;
+      currentSetTitle = parsed.setTitle || file;
+
+      updateSetUI();
+      UI.startBtn.disabled = !(mode && QUESTIONS.length);
+
+      resetAll(true);
+
+      UI.resultsArea.innerHTML = `
+        <div class="muted">
+          Loaded: <b>${currentSetTitle}</b><br>
+          Choose a mode, then click <b>Start test</b>.
+        </div>
+      `;
+    } catch(err){
+      alert(err?.message || "Failed to load set.");
+    } finally {
+      UI.loadSetBtn.disabled = false;
+      UI.loadSetBtn.textContent = "Load set";
+    }
+  }
+
+  function setMode(newMode){
+    mode = newMode;
+    document.querySelectorAll(".modeCard").forEach(el => {
+      el.classList.toggle("selected", el.dataset.mode === mode);
+    });
+    UI.modeText.textContent = (mode === "timed" ? "Timed (30 minutes)" : "Non-timed");
+    UI.timerLabel.textContent = (mode === "timed" ? "TIMER (30:00 max)" : "TIMER");
+    UI.startBtn.disabled = !(mode && QUESTIONS.length);
+  }
+
+  UI.modeGrid.addEventListener("click", (e) => {
+    const card = e.target.closest(".modeCard");
+    if (!card) return;
+    setMode(card.dataset.mode);
+  });
+  UI.modeGrid.addEventListener("keydown", (e) => {
+    const card = e.target.closest(".modeCard");
+    if (!card) return;
+    if (e.key === "Enter" || e.key === " "){
+      e.preventDefault();
+      setMode(card.dataset.mode);
+    }
+  });
+
+  UI.testArea.addEventListener("change", (e) => {
+    if (!startedAt || submitted) return;
+
+    const input = e.target;
+    if (!input || !input.name || !input.name.startsWith("q")) return;
+
+    const qid = Number(input.name.slice(1));
+    const q = QUESTIONS.find(x => x.id === qid);
+    if (!q) return;
+
+    const value = unescapeAttr(input.value);
+
+    if (q.type === "multi"){
+      if (!(userAnswers[qid] instanceof Set)) userAnswers[qid] = new Set();
+      const set = userAnswers[qid];
+      if (input.checked) set.add(value);
+      else set.delete(value);
+    } else {
+      userAnswers[qid] = value;
+    }
+
+    UI.submitBtn.disabled = false;
+  });
+
+  UI.prevBtn.addEventListener("click", () => {
+    if (!startedAt || submitted) return;
+    if (currentPage > 0){
+      currentPage--;
+      renderPage();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+
+  UI.nextBtn.addEventListener("click", () => {
+    if (!startedAt || submitted) return;
+    if (currentPage < totalPages - 1){
+      currentPage++;
+      renderPage();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+
+  UI.submitBtn.addEventListener("click", () => submitNow(false));
+  UI.redoBtn.addEventListener("click", () => resetAll(true));
+
+  UI.clearHistoryBtn.addEventListener("click", () => {
+    if (!confirm("Clear all saved attempts on this computer?")) return;
+    localStorage.removeItem("mog_d5_mock_history_dynamic_v1");
+    renderHistory();
+  });
+
+  UI.loadSetBtn.addEventListener("click", loadSelectedSet);
+
+  UI.startBtn.addEventListener("click", () => {
+    const ident = requireIdentity();
+    if (!ident) return;
+
+    if (!QUESTIONS.length){
+      alert("Please load a question set first.");
+      return;
+    }
+    if (!mode){
+      alert("Please select Timed or Non-timed mode first.");
+      return;
+    }
+
+    UI.name.disabled = true;
+    UI.email.disabled = true;
+    UI.setSelect.disabled = true;
+    UI.loadSetBtn.disabled = true;
+
+    UI.startBtn.disabled = true;
+    UI.redoBtn.disabled = true;
+
+    setStatus("In progress");
+    startTimer();
+
+    UI.questionsCard.classList.remove("hidden");
+    UI.modeText.textContent = (mode === "timed" ? "Timed (30 minutes)" : "Non-timed");
+
+    renderPage();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  async function init(){
+    setStatus("Not started");
+    renderHistory();
+
+    UI.modeText.textContent = "-";
+    UI.setText.textContent = "-";
+    UI.countPill.textContent = "0 questions";
+    UI.startBtn.disabled = true;
+
+    try{
+      const sets = await discoverExamSets();
+      UI.setSelect.innerHTML = `<option value="">Select a set...</option>` +
+        sets.map(s => `<option value="${escapeAttr(s.file)}">${s.label} (${s.file})</option>`).join("");
+    } catch(err){
+      UI.setSelect.innerHTML = `<option value="">Could not load set list</option>`;
+      UI.resultsArea.innerHTML = `<div class="muted">Could not auto-discover sets. Please configure <b>GITHUB_OWNER</b> and <b>GITHUB_REPO</b> in the code.</div>`;
+    }
+
+    resetAll(true);
+  }
+
+  init();
+</script>
+</body>
+</html>
+```

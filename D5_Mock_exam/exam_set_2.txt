@@ -1,0 +1,33 @@
+SET_TITLE|D5 Exam Set 2
+Q|1|tf
+TEXT|Is Asoola the cutest creature on earth?
+ANS|True
+END
+
+Q|2|single
+TEXT|Who is the cutest creature on earth?
+OPT|a|Asoola
+OPT|b|Salsoola
+OPT|c|Aseelato
+OPT|d|Awaseels
+ANS|a
+END
+
+Q|3|multi
+TEXT|How do you know that Asoola is the cutest creature on earth?
+OPT|a|She bites!
+OPT|b|She pinches!
+OPT|c|She works :(
+OPT|d|I just know!
+ANS|a,b,d
+END
+
+Q|4|single
+TEXT|Who is this?
+IMAGE|images/Asoola.png
+OPT|a|The cutest creature on earth!
+OPT|b|The cutest creature in the house!
+OPT|c|The cutest creature in the room!
+OPT|d|The cutest creature in the city!
+ANS|a
+END

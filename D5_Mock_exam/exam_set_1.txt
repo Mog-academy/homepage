@@ -1,0 +1,33 @@
+SET_TITLE|D5 Exam Set 1 (Example)
+Q|1|tf
+TEXT|D5 primarily utilizes the dedicated graphics card (discrete GPU) during runtime.
+ANS|True
+END
+
+Q|2|single
+TEXT|After logging in to the account, you can open the Widget in the ( ) and then use the Widget function.
+OPT|a|Tools
+OPT|b|Account
+OPT|c|View
+OPT|d|Preference
+ANS|c
+END
+
+Q|3|multi
+TEXT|How to hide the light source icons/light controls in the scene?
+OPT|a|Select "Display - Light Source" option in the scene controls on upper right corner of the viewport.
+OPT|b|Use the shortcut L
+OPT|c|Hide it directly in the scene resources list on the left
+OPT|d|Use the shortcut I
+ANS|a,b
+END
+
+Q|4|single
+TEXT|If the preview screen does not show the corresponding element and the element name is grayed out in the scene resource list as shown in picture 1, it is because ( ).
+IMAGE|images/Q29.png
+OPT|a|The model is hidden
+OPT|b|The model is locked
+OPT|c|The model is lost
+OPT|d|The layer is hidden
+ANS|d
+END
