@@ -1,33 +1,81 @@
-SET_TITLE|D5 Exam Set 2
+SET_TITLE|D5 Quiz 1
+
 Q|1|tf
-TEXT|Is Asoola the cutest creature on earth?
+TEXT|In D5 Render, the Scene panel is where you manage objects, lights, and groups in your project.
 ANS|True
 END
 
 Q|2|single
-TEXT|Who is the cutest creature on earth?
-OPT|a|Asoola
-OPT|b|Salsoola
-OPT|c|Aseelato
-OPT|d|Awaseels
-ANS|a
+TEXT|Which panel is primarily used to adjust material properties such as roughness, normal maps, and textures in D5 Render?
+OPT|a|Scene panel
+OPT|b|Material panel
+OPT|c|Environment panel
+OPT|d|Render panel
+ANS|b
 END
 
 Q|3|multi
-TEXT|How do you know that Asoola is the cutest creature on earth?
-OPT|a|She bites!
-OPT|b|She pinches!
-OPT|c|She works :(
-OPT|d|I just know!
+TEXT|Which of the following settings are controlled inside the Environment panel in D5 Render?
+OPT|a|Sky and weather
+OPT|b|Time of day and sun position
+OPT|c|Camera focal length
+OPT|d|HDRI lighting
 ANS|a,b,d
 END
 
 Q|4|single
-TEXT|Who is this?
-IMAGE|images/Asoola.png
-OPT|a|The cutest creature on earth!
-OPT|b|The cutest creature in the house!
-OPT|c|The cutest creature in the room!
-OPT|d|The cutest creature in the city!
+TEXT|Which effect is mainly responsible for simulating realistic indirect lighting and light bounce in D5 Render?
+OPT|a|Bloom
+OPT|b|Ambient Occlusion
+OPT|c|Global Illumination
+OPT|d|Depth of Field
+ANS|c
+END
+
+Q|5|tf
+TEXT|D5 Render’s AI features can be used to enhance materials and automatically improve scene realism.
+ANS|True
+END
+
+Q|6|single
+TEXT|What does the following icon represent in the D5 Render interface?
+IMAGE|images/Quiz_Q6_1.png
+OPT|a|Material Library
+OPT|b|AI Enhance Tool
+OPT|c|Render Settings
+OPT|d|Asset Browser
+ANS|d
+END
+
+Q|7|multi
+TEXT|Which keyboard shortcuts are commonly used in D5 Render for navigation and workflow?
+OPT|a|W, A, S, D for camera movement
+OPT|b|Ctrl + Z to undo
+OPT|c|Shift + R to reset scene
+OPT|d|Ctrl + C / Ctrl + V to copy and paste objects
+ANS|a,b,d
+END
+
+Q|8|single
+TEXT|When creating a video animation in D5 Render, which feature allows you to define camera movement over time?
+OPT|a|Camera Path
+OPT|b|Material Timeline
+OPT|c|Effect Stack
+OPT|d|AI Motion Tool
 ANS|a
+END
+
+Q|9|tf
+TEXT|Increasing render quality settings will generally result in longer render times in D5 Render.
+ANS|True
+END
+
+Q|10|single
+TEXT|Which render output is best suited for final client delivery with maximum visual quality?
+IMAGE|images/Quiz_Q10_1.png
+OPT|a|Viewport Screenshot
+OPT|b|Draft Render
+OPT|c|Final Render (High Quality)
+OPT|d|Clay Render
+ANS|c
 END
