@@ -29,24 +29,29 @@
         radial-gradient(900px 520px at 30% -10%, rgba(255,255,255,.16), transparent 60%),
         radial-gradient(900px 520px at 70% 110%, rgba(255,255,255,.10), transparent 60%),
         linear-gradient(180deg, rgba(243,154,31,.95), rgba(243,154,31,.88));
-      min-height:100svh;
 
-      /* ✅ Keep everything visible without scrolling (desktop/laptop) */
+      /* ✅ Use dynamic viewport height (fixes Chrome UI cropping) */
+      min-height: 100dvh;
+
       display:flex;
       align-items:center;
       justify-content:center;
       padding: 18px;
     }
 
-    /* ✅ Smaller overall card */
     .page{
       width:min(var(--max), 100%);
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      overflow:hidden;
-      max-height: calc(100svh - 36px); /* ensures borders stay visible */
+
+      /* ✅ Never crop: if height is tight, scroll INSIDE the white box */
+      max-height: calc(100dvh - 36px);
+      overflow: auto;
+
+      /* Optional: smoother feel */
+      -webkit-overflow-scrolling: touch;
     }
 
     .inner{
@@ -85,7 +90,6 @@
       padding: 10px 8px 6px;
     }
 
-    /* ✅ Smaller logo so everything fits */
     .logo{
       display:flex;
       justify-content:center;
@@ -139,7 +143,6 @@
       border-color: rgba(243,154,31,.35);
     }
 
-    /* ✅ Shorter thumbnails to reduce height */
     .course .thumb{
       width:100%;
       height: 118px;
@@ -242,7 +245,7 @@
       display:block;
     }
 
-    /* ✅ Small screens: allow scroll instead of cropping */
+    /* Mobile: stack courses */
     @media (max-width: 860px){
       body{
         display:block;
