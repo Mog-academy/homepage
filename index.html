@@ -7,70 +7,71 @@
 
   <style>
     :root{
-      --orange:#ff9e0c;
-      --orange2:#ff9e0c;
+      --orange:#f39a1f;
       --text:#111;
       --muted:#6b7280;
       --card:#ffffff;
       --border:#ececf2;
       --shadow: 0 18px 45px rgba(0,0,0,.16);
-      --radius: 28px;
-      --radius-sm: 18px;
-      --max: 1080px;
-      --gap: 18px;
+      --radius: 26px;
+      --radius-sm: 16px;
+      --max: 920px;
+      --gap: 14px;
     }
 
     *{ box-sizing:border-box; }
 
-    /* ✅ Orange background + allow scrolling */
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
       background:
-        radial-gradient(900px 520px at 30% -10%, rgba(255,255,255,.18), transparent 60%),
-        radial-gradient(900px 520px at 70% 110%, rgba(255,255,255,.12), transparent 60%),
+        radial-gradient(900px 520px at 30% -10%, rgba(255,255,255,.16), transparent 60%),
+        radial-gradient(900px 520px at 70% 110%, rgba(255,255,255,.10), transparent 60%),
         linear-gradient(180deg, rgba(243,154,31,.95), rgba(243,154,31,.88));
       min-height:100svh;
-      /* IMPORTANT: don't center with flex -> prevents cropping/scroll issues on small screens */
-      display:block;
+
+      /* ✅ Keep everything visible without scrolling (desktop/laptop) */
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
     }
 
-    /* ✅ margins above & below the page */
+    /* ✅ Smaller overall card */
     .page{
-      width:min(var(--max), calc(100% - 36px));
-      margin: 24px auto; /* top & bottom margin */
+      width:min(var(--max), 100%);
       background: var(--card);
-      border: 1px solid rgba(255,255,255,.25);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
+      max-height: calc(100svh - 36px); /* ensures borders stay visible */
     }
 
     .inner{
-      padding: 26px 26px 22px;
+      padding: 16px 18px 14px;
     }
 
-    /* Top nav */
     .top{
       display:flex;
       align-items:center;
       justify-content:flex-start;
-      gap: 16px;
+      gap: 12px;
       flex-wrap:wrap;
     }
 
     .nav{
       display:flex;
-      gap: 18px;
+      gap: 14px;
       align-items:center;
       flex-wrap:wrap;
-      font-size: 14px;
+      font-size: 13px;
     }
     .nav a{
       text-decoration:none;
       color: var(--muted);
-      padding: 8px 10px;
+      padding: 7px 9px;
       border-radius: 999px;
       transition: .15s ease;
     }
@@ -78,30 +79,28 @@
       background: rgba(243,154,31,.10);
       color: var(--orange);
     }
-    /* ✅ No tab highlighted by default (since each opens different page) */
 
-    /* Center hero */
     .hero{
       text-align:center;
-      padding: 18px 10px 8px;
+      padding: 10px 8px 6px;
     }
 
-    /* ✅ Big centered logo (max 500px wide) */
+    /* ✅ Smaller logo so everything fits */
     .logo{
       display:flex;
       justify-content:center;
-      margin: 10px 0 10px;
+      margin: 8px 0 6px;
     }
     .logo img{
-      width: min(500px, 92%);
+      width: min(320px, 70%);
       height:auto;
       display:block;
     }
 
     .coming-anim{
-      font-size: 18px;
+      font-size: 15px;
       color: var(--muted);
-      margin: 6px 0 0;
+      margin: 4px 0 0;
       animation: fadePulse 1.8s ease-in-out infinite;
       letter-spacing:.02em;
     }
@@ -111,18 +110,18 @@
     }
 
     .sub{
-      margin: 14px auto 0;
-      max-width: 760px;
+      margin: 10px auto 0;
+      max-width: 720px;
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.55;
+      font-size: 13px;
+      line-height: 1.45;
     }
 
     .courses{
       display:grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
       gap: var(--gap);
-      padding: 20px 6px 12px;
+      padding: 12px 2px 8px;
     }
 
     .course{
@@ -133,24 +132,24 @@
       position:relative;
       cursor:pointer;
       transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
-      min-height: 210px;
     }
     .course:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 18px 35px rgba(0,0,0,.10);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(0,0,0,.10);
       border-color: rgba(243,154,31,.35);
     }
 
+    /* ✅ Shorter thumbnails to reduce height */
     .course .thumb{
       width:100%;
-      height: 180px;
+      height: 118px;
       object-fit: cover;
       display:block;
       background: #fafafa;
     }
 
     .course .footer{
-      padding: 12px 14px 14px;
+      padding: 9px 10px 10px;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -162,8 +161,8 @@
       color: var(--orange);
       background: rgba(243,154,31,.08);
       border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 13px;
+      padding: 6px 10px;
+      font-size: 12px;
       white-space:nowrap;
     }
     .pill.muted{
@@ -171,6 +170,7 @@
       background:transparent;
       color:var(--muted);
       font-weight:600;
+      padding-right: 0;
     }
 
     .overlay{
@@ -182,31 +182,28 @@
       background: rgba(17,17,17,.55);
       opacity:0;
       transition: opacity .16s ease;
-      padding: 14px;
+      padding: 12px;
       text-align:center;
     }
     .course:hover .overlay{ opacity:1; }
     .overlay span{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-radius: 999px;
       background: var(--orange);
       color: #fff;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .bottom{
       text-align:center;
-      padding: 10px 6px 18px;
+      padding: 8px 6px 10px;
     }
 
     .contact{
-      margin: 10px 0 12px;
+      margin: 6px 0 10px;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
     }
     .contact a{
       color: var(--text);
@@ -219,11 +216,11 @@
       display:flex;
       justify-content:center;
       align-items:center;
-      gap: 12px;
+      gap: 10px;
     }
     .social a{
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: 14px;
       border: 1px solid var(--border);
       background: #fff;
@@ -239,17 +236,27 @@
       box-shadow: 0 10px 20px rgba(0,0,0,.08);
     }
     .social img{
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       object-fit: contain;
       display:block;
     }
 
-    /* ✅ Responsive behavior + always scrollable */
-    @media (max-width: 940px){
-      .courses{ grid-template-columns: 1fr; }
-      .course .thumb{ height: 200px; }
-      .inner{ padding: 22px 18px 18px; }
+    /* ✅ Small screens: allow scroll instead of cropping */
+    @media (max-width: 860px){
+      body{
+        display:block;
+        padding: 16px;
+      }
+      .page{
+        margin: 16px auto;
+        max-height: none;
+      }
+      .courses{
+        grid-template-columns: 1fr;
+      }
+      .course .thumb{ height: 170px; }
+      .logo img{ width: min(340px, 86%); }
     }
   </style>
 </head>
