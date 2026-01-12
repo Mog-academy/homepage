@@ -244,7 +244,9 @@
       padding:12px;
       background:#fff;
     }
-  </style>
+  
+  .opt-img{ display:block; max-width:220px; max-height:120px; margin-top:8px; border:2px solid var(--orange); border-radius:12px; }
+</style>
 </head>
 
 <body>
@@ -624,27 +626,47 @@
       const choices = document.createElement("div");
       choices.className = "choices";
 
-      q.options.forEach(opt => {
-        const lbl = document.createElement("label");
-        const isLong = opt.length > 70;
-        lbl.className = "choice" + (isLong ? " long" : "");
-        const v = escapeAttr(opt);
+q.options.forEach(optRaw => {
+  // Supports option objects from parser: { text, image, value }
+  // Also supports legacy string options.
+  let opt = null;
+  if (optRaw && typeof optRaw === "object"){
+    opt = optRaw;
+  } else {
+    const s = String(optRaw ?? "").trim();
+    const parts = s.split("|").map(x => x.trim()).filter(Boolean);
+    const imgIdx = parts.findIndex(p => p.toUpperCase() === "IMAGE");
 
-        if (q.type === "multi"){
-          lbl.innerHTML = `
-            <input type="checkbox" name="q${q.id}" value="${v}" />
-            <span>${opt}</span>
-          `;
-        } else {
-          lbl.innerHTML = `
-            <input type="radio" name="q${q.id}" value="${v}" />
-            <span>${opt}</span>
-          `;
-        }
-        choices.appendChild(lbl);
-      });
+    let text = s;
+    let image = null;
 
-      wrap.appendChild(choices);
+    if (imgIdx !== -1){
+      const after = parts.slice(imgIdx + 1).join("|").trim();
+      image = after || null;
+      const before = parts.slice(0, imgIdx).join("|").trim();
+      text = before || "";
+    }
+
+    const value = text ? text : (image ? `IMAGE|${image}` : s);
+    opt = { text, image, value };
+  }
+
+  const lbl = document.createElement("label");
+  const displayText = (opt.text || "").trim();
+  const isLong = displayText.length > 70;
+  lbl.className = "choice" + (isLong ? " long" : "");
+  const v = escapeAttr(opt.value);
+
+  const inputType = (q.type === "multi") ? "checkbox" : "radio";
+  lbl.innerHTML = `
+    <input type="${inputType}" name="q${q.id}" value="${v}" />
+    <span>${escapeAttr(displayText)}</span>
+    ${opt.image ? `<img class="opt-img" src="${escapeAttr(opt.image)}" alt="Option image" />` : ``}
+  `;
+  choices.appendChild(lbl);
+});
+
+wrap.appendChild(choices);
       UI.testArea.appendChild(wrap);
 
       const saved = userAnswers[q.id];
@@ -933,12 +955,41 @@
     const questions = [];
     const key = {};
     let cur = null;
+// Option format support:
+// - Plain text: OPT|a|Some text
+// - Image-only option: OPT|a|IMAGE|images/Quiz_Q10_OP1.png
+// - Text + image: OPT|a|Some text|IMAGE|images/Quiz_Q10_OP1.png
+function normOption(raw){
+  const s = String(raw ?? "").trim();
+  if (!s) return null;
+
+  // Split on "|" to detect IMAGE marker inside the payload.
+  const parts = s.split("|").map(x => x.trim()).filter(Boolean);
+  const imgIdx = parts.findIndex(p => p.toUpperCase() === "IMAGE");
+
+  let text = s;
+  let image = null;
+
+  if (imgIdx !== -1){
+    const after = parts.slice(imgIdx + 1).join("|").trim();
+    image = after || null;
+    const before = parts.slice(0, imgIdx).join("|").trim();
+    text = before || "";
+  }
+
+  // Canonical value used for grading / saving:
+  // - If text exists, use text as value (keeps compatibility with existing answer keys)
+  // - If image-only, use "IMAGE|<path>"
+  const value = text ? text : (image ? `IMAGE|${image}` : s);
+
+  return { text, image, value };
+}
 
     function finalize(){
       if (!cur) return;
 
       if (cur.type === "tf" && (!cur.options || !cur.options.length)){
-        cur.options = ["True","False"];
+        cur.options = [normOption("True"), normOption("False")];
       }
 
       if (!cur.id || !cur.type || !cur.text){
@@ -955,7 +1006,8 @@
         let correctText = null;
         if (/^[a-z]$/i.test(a)){
           const idx = a.toLowerCase().charCodeAt(0) - 97;
-          correctText = (cur.options || [])[idx];
+          const opt = (cur.options || [])[idx];
+          correctText = opt ? opt.value : null;
           if (!correctText) throw new Error(`ANS for Q${cur.id} points to a missing option (${a}).`);
         } else {
           correctText = a;
@@ -967,7 +1019,8 @@
         const correct = parts.map(p => {
           if (/^[a-z]$/i.test(p)){
             const idx = p.toLowerCase().charCodeAt(0) - 97;
-            const t = (cur.options || [])[idx];
+            const opt = (cur.options || [])[idx];
+            const t = opt ? opt.value : null;
             if (!t) throw new Error(`ANS for Q${cur.id} points to a missing option (${p}).`);
             return t;
           }
@@ -1017,8 +1070,9 @@
       }
 
       if (tag === "OPT"){
-        const optText = parts.slice(2).join("|").trim();
-        if (optText) cur.options.push(optText);
+        const optPayload = parts.slice(2).join("|").trim();
+        const opt = normOption(optPayload);
+        if (opt) cur.options.push(opt);
         continue;
       }
 
