@@ -8,54 +8,62 @@
 
   <style>
     :root{
-      --orange:#f39a1f;
+      --orange:#ff9e0c;
+      --orange2:#ff9e0c;
       --text:#111;
       --muted:#6b7280;
       --card:#ffffff;
-      --border:#e9e9ee;
-      --shadow: 0 18px 45px rgba(0,0,0,.12);
-      --radius: 26px;
+      --border:#ececf2;
+      --shadow: 0 18px 45px rgba(0,0,0,.16);
+      --radius: 28px;
       --radius-sm: 18px;
-      --max: 980px;
+      --max: 1080px;
       --gap: 18px;
     }
 
     *{ box-sizing:border-box; }
+
+    /* ✅ Orange background + allow scrolling */
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
-      background: radial-gradient(1200px 600px at 50% -100px, rgba(243,154,31,.35), transparent 60%),
-                  linear-gradient(180deg, rgba(243,154,31,.18), rgba(243,154,31,.06));
+      background:
+        radial-gradient(900px 520px at 30% -10%, rgba(255,255,255,.18), transparent 60%),
+        radial-gradient(900px 520px at 70% 110%, rgba(255,255,255,.12), transparent 60%),
+        linear-gradient(180deg, rgba(243,154,31,.95), rgba(243,154,31,.88));
       min-height:100svh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 36px 18px;
+      /* IMPORTANT: don't center with flex -> prevents cropping/scroll issues on small screens */
+      display:block;
     }
 
-    .wrap{
-      width:min(var(--max), 100%);
-      background:var(--card);
-      border:1px solid var(--border);
+    /* ✅ margins above & below the page */
+    .page{
+      width:min(var(--max), calc(100% - 36px));
+      margin: 24px auto; /* top & bottom margin */
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.25);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 28px 26px 22px;
-      position:relative;
       overflow:hidden;
     }
 
+    .inner{
+      padding: 26px 26px 22px;
+    }
+
+    /* Top nav */
     .top{
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      gap: 14px;
+      justify-content:flex-start;
+      gap: 16px;
       flex-wrap:wrap;
     }
 
     .nav{
       display:flex;
-      gap: 22px;
+      gap: 18px;
       align-items:center;
       flex-wrap:wrap;
       font-size: 14px;
@@ -66,56 +74,37 @@
       padding: 8px 10px;
       border-radius: 999px;
       transition: .15s ease;
-      position:relative;
-    }
-    .nav a.active{
-      color: var(--orange);
-      font-weight: 600;
-    }
-    .nav a.active::after{
-      content:"";
-      position:absolute;
-      left: 12px;
-      right: 12px;
-      bottom: 4px;
-      height: 2px;
-      background: var(--orange);
-      border-radius: 2px;
     }
     .nav a:hover{
       background: rgba(243,154,31,.10);
       color: var(--orange);
     }
+    /* ✅ No tab highlighted by default (since each opens different page) */
 
-    .logo{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-    }
-    .logo img{
-      height: 42px;
-      width:auto;
-      display:block;
-    }
-
+    /* Center hero */
     .hero{
       text-align:center;
-      padding: 26px 10px 18px;
+      padding: 18px 10px 8px;
     }
 
-    .coming{
-      font-size: clamp(38px, 6vw, 64px);
-      letter-spacing: 0.10em;
-      font-weight: 300;
-      margin: 18px 0 8px;
-      color: var(--orange);
+    /* ✅ Big centered logo (max 500px wide) */
+    .logo{
+      display:flex;
+      justify-content:center;
+      margin: 10px 0 10px;
+    }
+    .logo img{
+      width: min(500px, 92%);
+      height:auto;
+      display:block;
     }
 
     .coming-anim{
       font-size: 18px;
       color: var(--muted);
-      margin: 0;
+      margin: 6px 0 0;
       animation: fadePulse 1.8s ease-in-out infinite;
+      letter-spacing:.02em;
     }
     @keyframes fadePulse{
       0%,100%{ opacity:.25; }
@@ -124,7 +113,7 @@
 
     .sub{
       margin: 14px auto 0;
-      max-width: 720px;
+      max-width: 760px;
       color: var(--muted);
       font-size: 15px;
       line-height: 1.55;
@@ -134,7 +123,7 @@
       display:grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
       gap: var(--gap);
-      padding: 18px 6px 12px;
+      padding: 20px 6px 12px;
     }
 
     .course{
@@ -155,7 +144,7 @@
 
     .course .thumb{
       width:100%;
-      height: 170px;
+      height: 180px;
       object-fit: cover;
       display:block;
       background: #fafafa;
@@ -178,6 +167,12 @@
       font-size: 13px;
       white-space:nowrap;
     }
+    .pill.muted{
+      border-color:transparent;
+      background:transparent;
+      color:var(--muted);
+      font-weight:600;
+    }
 
     .overlay{
       position:absolute;
@@ -196,7 +191,6 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap: 10px;
       padding: 12px 16px;
       border-radius: 999px;
       background: var(--orange);
@@ -207,10 +201,11 @@
 
     .bottom{
       text-align:center;
-      padding: 8px 6px 0;
+      padding: 10px 6px 18px;
     }
+
     .contact{
-      margin: 10px 0 10px;
+      margin: 10px 0 12px;
       color: var(--muted);
       font-size: 14px;
     }
@@ -226,7 +221,6 @@
       justify-content:center;
       align-items:center;
       gap: 12px;
-      padding: 6px 0 4px;
     }
     .social a{
       width: 44px;
@@ -252,85 +246,85 @@
       display:block;
     }
 
-    /* Responsive */
-    @media (max-width: 880px){
+    /* ✅ Responsive behavior + always scrollable */
+    @media (max-width: 940px){
       .courses{ grid-template-columns: 1fr; }
-      .course .thumb{ height: 190px; }
-      .top{ justify-content:center; }
-      .nav{ justify-content:center; }
+      .course .thumb{ height: 200px; }
+      .inner{ padding: 22px 18px 18px; }
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
-    <header class="top">
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="active" href="howsoon.html">How soon</a>
-        <a href="about.html">About</a>
-        <a href="features.html">Features</a>
-      </nav>
+  <main class="page">
+    <div class="inner">
+      <header class="top">
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="howsoon.html">How soon</a>
+          <a href="about.html">About</a>
+          <a href="features.html">Features</a>
+        </nav>
+      </header>
 
-      <div class="logo" aria-label="Mo.G Academy">
-        <img src="logo.png" alt="Mo.G Academy logo" />
-      </div>
-    </header>
-
-    <section class="hero">
-      <h1 class="coming">COMING SOON</h1>
-      <p class="coming-anim">coming soon...</p>
-      <p class="sub">Online courses for 3D software, architectural visualization, CGI, and production-ready workflows.</p>
-    </section>
-
-    <section class="courses" aria-label="Upcoming courses">
-      <article class="course" data-href="interest.html" role="link" aria-label="Course 1: register your interest">
-        <img class="thumb" src="course1.png" alt="Course 1 preview" />
-        <div class="footer">
-          <span class="pill">Coming Soon</span>
-          <span class="pill" style="border-color:transparent;background:transparent;color:var(--muted);font-weight:600;">Course 1</span>
+      <section class="hero">
+        <div class="logo">
+          <img src="logo.png" alt="Mo.G Academy logo" />
         </div>
-        <div class="overlay"><span>Register your interest</span></div>
-      </article>
 
-      <article class="course" data-href="interest.html" role="link" aria-label="Course 2: register your interest">
-        <img class="thumb" src="course2.png" alt="Course 2 preview" />
-        <div class="footer">
-          <span class="pill">Coming Soon</span>
-          <span class="pill" style="border-color:transparent;background:transparent;color:var(--muted);font-weight:600;">Course 2</span>
+        <p class="coming-anim">coming soon...</p>
+        <p class="sub">Online courses for 3D software, architectural visualization, CGI, and production-ready workflows.</p>
+      </section>
+
+      <section class="courses" aria-label="Upcoming courses">
+        <article class="course" data-href="interest.html" role="link" aria-label="Course 1: register your interest">
+          <img class="thumb" src="course1.png" alt="Course 1 preview" />
+          <div class="footer">
+            <span class="pill">Coming Soon</span>
+            <span class="pill muted">Course 1</span>
+          </div>
+          <div class="overlay"><span>Register your interest</span></div>
+        </article>
+
+        <article class="course" data-href="interest.html" role="link" aria-label="Course 2: register your interest">
+          <img class="thumb" src="course2.png" alt="Course 2 preview" />
+          <div class="footer">
+            <span class="pill">Coming Soon</span>
+            <span class="pill muted">Course 2</span>
+          </div>
+          <div class="overlay"><span>Register your interest</span></div>
+        </article>
+
+        <article class="course" data-href="interest.html" role="link" aria-label="Course 3: register your interest">
+          <img class="thumb" src="course3.png" alt="Course 3 preview" />
+          <div class="footer">
+            <span class="pill">Coming Soon</span>
+            <span class="pill muted">Course 3</span>
+          </div>
+          <div class="overlay"><span>Register your interest</span></div>
+        </article>
+      </section>
+
+      <footer class="bottom">
+        <div class="contact">
+          Contact: <a href="mailto:hello@mog-academy.com">hello@mog-academy.com</a>
         </div>
-        <div class="overlay"><span>Register your interest</span></div>
-      </article>
 
-      <article class="course" data-href="interest.html" role="link" aria-label="Course 3: register your interest">
-        <img class="thumb" src="course3.png" alt="Course 3 preview" />
-        <div class="footer">
-          <span class="pill">Coming Soon</span>
-          <span class="pill" style="border-color:transparent;background:transparent;color:var(--muted);font-weight:600;">Course 3</span>
+        <div class="social" aria-label="Social media links">
+          <a id="social-instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="insta.png" alt="Instagram" />
+          </a>
+          <a id="social-linkedin" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <img src="linkedin.png" alt="LinkedIn" />
+          </a>
+          <a id="social-youtube" href="#" target="_blank" rel="noopener" aria-label="YouTube">
+            <img src="youtube.png" alt="YouTube" />
+          </a>
+          <a id="social-tiktok" href="#" target="_blank" rel="noopener" aria-label="TikTok">
+            <img src="tiktok.png" alt="TikTok" />
+          </a>
         </div>
-        <div class="overlay"><span>Register your interest</span></div>
-      </article>
-    </section>
-
-    <footer class="bottom">
-      <div class="contact">
-        Contact: <a href="mailto:info@mogacademy.com">info@mogacademy.com</a>
-      </div>
-
-      <div class="social" aria-label="Social media links">
-        <a id="social-instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram">
-          <img src="insta.png" alt="Instagram" />
-        </a>
-        <a id="social-linkedin" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <img src="linkedin.png" alt="LinkedIn" />
-        </a>
-        <a id="social-youtube" href="#" target="_blank" rel="noopener" aria-label="YouTube">
-          <img src="youtube.png" alt="YouTube" />
-        </a>
-        <a id="social-tiktok" href="#" target="_blank" rel="noopener" aria-label="TikTok">
-          <img src="tiktok.png" alt="TikTok" />
-        </a>
-      </div>
-    </footer>
+      </footer>
+    </div>
   </main>
 
   <script>
@@ -342,7 +336,6 @@
       tiktok:    "https://tiktok.com/@YOUR_HANDLE"
     };
 
-    // Apply social links
     document.getElementById("social-instagram").href = SOCIAL_LINKS.instagram;
     document.getElementById("social-linkedin").href  = SOCIAL_LINKS.linkedin;
     document.getElementById("social-youtube").href   = SOCIAL_LINKS.youtube;
