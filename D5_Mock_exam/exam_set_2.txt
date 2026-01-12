@@ -73,9 +73,9 @@ END
 
 Q|10|single
 TEXT|This button allows you to add an asset to your local library:
-OPT|a|IMAGE|images/Quiz_Q10_OP1
-OPT|b|IMAGE|images/Quiz_Q10_OP2
-OPT|c|IMAGE|images/Quiz_Q10_OP3
-OPT|d|IMAGE|images/Quiz_Q10_OP4
+OPT|a|IMAGE|images/Quiz_Q10_OP1.png
+OPT|b|IMAGE|images/Quiz_Q10_OP2.png
+OPT|c|IMAGE|images/Quiz_Q10_OP3.png
+OPT|d|IMAGE|images/Quiz_Q10_OP4.png
 ANS|c
 END
