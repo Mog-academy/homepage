@@ -39,7 +39,7 @@ END
 
 Q|6|single
 TEXT|What does the following icon represent in the D5 Render interface?
-IMAGE|images/Quiz_Q6_1.png
+IMAGE|D5_Mock_exam/images/Quiz_Q6_1.png
 OPT|a|Assets
 OPT|b|AI Post-Processing
 OPT|c|Import
