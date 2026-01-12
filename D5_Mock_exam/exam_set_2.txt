@@ -1,16 +1,16 @@
 SET_TITLE|D5 Quiz 1
 
 Q|1|tf
-TEXT|In D5 Render, the Scene panel is where you manage objects, lights, and groups in your project.
+TEXT|In D5 Render, the Scene List panel is where you manage objects, lights, and groups in your project.
 ANS|True
 END
 
 Q|2|single
 TEXT|Which panel is primarily used to adjust material properties such as roughness, normal maps, and textures in D5 Render?
-OPT|a|Scene panel
-OPT|b|Material panel
-OPT|c|Environment panel
-OPT|d|Render panel
+OPT|a|Scene
+OPT|b|Inspector
+OPT|c|Environment
+OPT|d|Effect
 ANS|b
 END
 
@@ -24,26 +24,26 @@ ANS|a,b,d
 END
 
 Q|4|single
-TEXT|Which effect is mainly responsible for simulating realistic indirect lighting and light bounce in D5 Render?
-OPT|a|Bloom
-OPT|b|Ambient Occlusion
-OPT|c|Global Illumination
-OPT|d|Depth of Field
-ANS|c
+TEXT|Which Camera setting in D5 Render controls how bright and contrasted the image appears on screen without affecting the final render output?
+OPT|a|Exposure
+OPT|b|Focal Length
+OPT|c|Contrast
+OPT|d|Camera Clipping Plane
+ANS|a
 END
 
 Q|5|tf
-TEXT|D5 Render’s AI features can be used to enhance materials and automatically improve scene realism.
-ANS|True
+TEXT|D5 Render’s AI features can be used to enhance materials and create terrains from pictures.
+ANS|False
 END
 
 Q|6|single
 TEXT|What does the following icon represent in the D5 Render interface?
 IMAGE|images/Quiz_Q6_1.png
-OPT|a|Material Library
-OPT|b|AI Enhance Tool
-OPT|c|Render Settings
-OPT|d|Asset Browser
+OPT|a|Assets
+OPT|b|AI Post-Processing
+OPT|c|Import
+OPT|d|Render Queue
 ANS|d
 END
 
@@ -52,18 +52,19 @@ TEXT|Which keyboard shortcuts are commonly used in D5 Render for navigation and 
 OPT|a|W, A, S, D for camera movement
 OPT|b|Ctrl + Z to undo
 OPT|c|Shift + R to reset scene
-OPT|d|Ctrl + C / Ctrl + V to copy and paste objects
+OPT|d|L to hide all control icons
 ANS|a,b,d
 END
 
 Q|8|single
-TEXT|When creating a video animation in D5 Render, which feature allows you to define camera movement over time?
-OPT|a|Camera Path
-OPT|b|Material Timeline
-OPT|c|Effect Stack
-OPT|d|AI Motion Tool
+TEXT|What is the primary purpose of the **Text to 3D** AI feature in D5 Render?
+OPT|a|To convert written prompts into 3D objects to be used as Assets
+OPT|b|To generate subtitles for rendered videos
+OPT|c|To turn text labels into emissive materials
+OPT|d|To annotate scenes for client review
 ANS|a
 END
+
 
 Q|9|tf
 TEXT|Increasing render quality settings will generally result in longer render times in D5 Render.
@@ -71,11 +72,10 @@ ANS|True
 END
 
 Q|10|single
-TEXT|Which render output is best suited for final client delivery with maximum visual quality?
-IMAGE|images/Quiz_Q10_1.png
-OPT|a|Viewport Screenshot
-OPT|b|Draft Render
-OPT|c|Final Render (High Quality)
-OPT|d|Clay Render
+TEXT|This button allows you to add an asset to your local library:
+OPT|a|IMAGE|images/Quiz_Q10_OP1
+OPT|b|IMAGE|images/Quiz_Q10_OP2
+OPT|c|IMAGE|images/Quiz_Q10_OP3
+OPT|d|IMAGE|images/Quiz_Q10_OP4
 ANS|c
 END
