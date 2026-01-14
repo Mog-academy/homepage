@@ -1,1 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<title>D5 Render Keyboard Shortcuts</title>
+
+<!-- SheetJS (XLSX Reader) -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<style>
+:root {
+  --border-orange: #ff9e0c;
+  --category-orange: #d66c1e;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: #ffffff;
+  color: #000000;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+header img {
+  max-width: 220px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* GRID LAYOUT */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* CATEGORY CARD */
+.card {
+  border: 2px solid var(--border-orange);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card h2 {
+  margin: 0;
+  padding: 10px 14px;
+  background: var(--category-orange);
+  color: #ffffff;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 6px 10px;
+  font-size: 14px;
+  vertical-align: top;
+  border-bottom: 1px solid #eee;
+}
+
+td.desc {
+  width: 70%;
+}
+
+td.shortcut {
+  width: 30%;
+  text-align: right;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width: 600px) {
+  td {
+    font-size: 13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="https://mog-academy.com" target="_blank">
+    <img src="logo.png" alt="Mo.G Academy Logo">
+  </a>
+</header>
+
+<div id="grid" class="grid"></div>
+
+<script>
+fetch("d5_cheat_sheet.xlsx")
+  .then(res => res.arrayBuffer())
+  .then(data => {
+    const workbook = XLSX.read(data, { type: "array" });
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(sheet);
+
+    const grouped = {};
+
+    rows.forEach(row => {
+      const category = row.Category;
+      if (!grouped[category]) grouped[category] = [];
+      grouped[category].push(row);
+    });
+
+    const grid = document.getElementById("grid");
+
+    Object.keys(grouped).forEach(category => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const title = document.createElement("h2");
+      title.textContent = category;
+      card.appendChild(title);
+
+      const table = document.createElement("table");
+
+      grouped[category].forEach(item => {
+        const tr = document.createElement("tr");
+
+        const desc = document.createElement("td");
+        desc.className = "desc";
+        desc.textContent = item.Description;
+
+        const shortcut = document.createElement("td");
+        shortcut.className = "shortcut";
+        shortcut.textContent = item.Shortcut || "";
+
+        tr.appendChild(desc);
+        tr.appendChild(shortcut);
+        table.appendChild(tr);
+      });
+
+      card.appendChild(table);
+      grid.appendChild(card);
+    });
+  });
+</script>
+
+</body>
+</html>
