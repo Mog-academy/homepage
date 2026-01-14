@@ -1,0 +1,13 @@
+{
+  "name": "D5 Render Cheat Sheet",
+  "short_name": "D5 Cheat Sheet",
+  "start_url": "/D5_cheat_sheet/",
+  "scope": "/D5_cheat_sheet/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff9e0c",
+  "icons": [
+    { "src": "/D5_cheat_sheet/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/D5_cheat_sheet/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
