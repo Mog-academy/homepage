@@ -6,7 +6,7 @@
 
 <title>D5 Render Keyboard Shortcuts</title>
 
-<!-- SheetJS (XLSX Reader) -->
+<!-- XLSX reader -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <style>
@@ -27,9 +27,11 @@ body {
   color: #000000;
 }
 
+/* HEADER */
 header {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 24px;
 }
 
@@ -39,7 +41,25 @@ header img {
   cursor: pointer;
 }
 
-/* GRID LAYOUT */
+/* PDF BUTTON */
+.pdf-btn {
+  margin-top: 12px;
+  padding: 10px 22px;
+  background: #ffffff;
+  border: 2px solid var(--border-orange);
+  color: var(--border-orange);
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pdf-btn:hover {
+  background: var(--border-orange);
+  color: #ffffff;
+}
+
+/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -71,7 +91,6 @@ table {
 td {
   padding: 6px 10px;
   font-size: 14px;
-  vertical-align: top;
   border-bottom: 1px solid #eee;
 }
 
@@ -86,10 +105,37 @@ td.shortcut {
   white-space: nowrap;
 }
 
-/* MOBILE OPTIMIZATION */
+/* MOBILE */
 @media (max-width: 600px) {
   td {
     font-size: 13px;
+  }
+}
+
+/* PRINT (PDF) */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+  body {
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .pdf-btn {
+    display: none;
+  }
+
+  .card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .grid {
+    gap: 10px;
   }
 }
 </style>
@@ -101,6 +147,8 @@ td.shortcut {
   <a href="https://mog-academy.com" target="_blank">
     <img src="logo.png" alt="Mo.G Academy Logo">
   </a>
+
+  <button class="pdf-btn" onclick="window.print()">Download PDF</button>
 </header>
 
 <div id="grid" class="grid"></div>
@@ -116,9 +164,10 @@ fetch("d5_cheat_sheet.xlsx")
     const grouped = {};
 
     rows.forEach(row => {
-      const category = row.Category;
-      if (!grouped[category]) grouped[category] = [];
-      grouped[category].push(row);
+      if (!grouped[row.Category]) {
+        grouped[row.Category] = [];
+      }
+      grouped[row.Category].push(row);
     });
 
     const grid = document.getElementById("grid");
