@@ -6,7 +6,6 @@
 
 <title>D5 Render Keyboard Shortcuts</title>
 
-<!-- XLSX reader -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <style>
@@ -40,10 +39,26 @@ header img {
   width: 100%;
   cursor: pointer;
 }
-
-/* PDF BUTTON */
-.pdf-btn {
+.page-title {
   margin-top: 12px;
+  margin-bottom: 6px;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--border-orange);
+  text-align: center;
+}
+
+.page-subtitle {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #000000;
+  text-align: center;
+  max-width: 520px;
+}
+
+/* BUTTONS */
+.btn {
+  margin-top: 10px;
   padding: 10px 22px;
   background: #ffffff;
   border: 2px solid var(--border-orange);
@@ -54,7 +69,7 @@ header img {
   cursor: pointer;
 }
 
-.pdf-btn:hover {
+.btn:hover {
   background: var(--border-orange);
   color: #ffffff;
 }
@@ -112,7 +127,7 @@ td.shortcut {
   }
 }
 
-/* PRINT (PDF) */
+/* PRINT */
 @media print {
   @page {
     size: A4 landscape;
@@ -125,17 +140,13 @@ td.shortcut {
     print-color-adjust: exact;
   }
 
-  .pdf-btn {
+  .btn {
     display: none;
   }
 
   .card {
     break-inside: avoid;
     page-break-inside: avoid;
-  }
-
-  .grid {
-    gap: 10px;
   }
 }
 </style>
@@ -147,13 +158,22 @@ td.shortcut {
   <a href="https://mog-academy.com" target="_blank">
     <img src="logo.png" alt="Mo.G Academy Logo">
   </a>
+  <h1 class="page-title">D5 Render Cheat Sheet</h1>
+  <p class="page-subtitle">
+    All D5 Render shortcuts are here. Refer to this sheet whenever in doubt.
+  </p>
 
-  <button class="pdf-btn" onclick="window.print()">Download PDF</button>
+  <button class="btn" onclick="window.print()">Download PDF</button>
+
+  <button id="installBtn" class="btn" style="display:none;">
+    Add to Home Screen
+  </button>
 </header>
 
 <div id="grid" class="grid"></div>
 
 <script>
+/* LOAD EXCEL DATA */
 fetch("d5_cheat_sheet.xlsx")
   .then(res => res.arrayBuffer())
   .then(data => {
@@ -164,9 +184,7 @@ fetch("d5_cheat_sheet.xlsx")
     const grouped = {};
 
     rows.forEach(row => {
-      if (!grouped[row.Category]) {
-        grouped[row.Category] = [];
-      }
+      if (!grouped[row.Category]) grouped[row.Category] = [];
       grouped[row.Category].push(row);
     });
 
@@ -202,6 +220,24 @@ fetch("d5_cheat_sheet.xlsx")
       grid.appendChild(card);
     });
   });
+
+/* ADD TO HOME SCREEN */
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = "inline-block";
+});
+
+installBtn.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  installBtn.style.display = "none";
+});
 </script>
 
 </body>
