@@ -1,10 +1,141 @@
-SET_TITLE|D5 Exam Set 1 (Example)
+SET_TITLE|D5 Exam Set 1
+
 Q|1|tf
-TEXT|D5 primarily utilizes the dedicated graphics card (discrete GPU) during runtime.
+TEXT|D5 primarily utilizes the dedicated graphics card (discrete GPU) during runtime. It is recommended to maintain a graphics card with relatively high performance for the best experience.
 ANS|True
 END
 
-Q|2|single
+Q|2|tf
+TEXT|For data security considerations, each D5 account can have a maximum of 3 device records saved. If the number of client devices logged in under one account exceeds 3, the login interface will display the message "The account login device exceeds the limit". Users can unbind devices themselves in the "MySpace - Device Management" section. After unbinding, they will be able to log in normally.
+ANS|True
+END
+
+Q|3|tf
+TEXT|Real-time plugins can be applied with D5 2.4 version.
+ANS|True
+END
+
+Q|4|tf
+TEXT|If you use the real-time synchronization plug-in to synchronize a model into D5, you can convert a real-time model to a non-real-time model by using the "Non-Live sync mode" function.
+ANS|True
+END
+
+Q|5|tf
+TEXT|Users can use the D5 LiveSync for 3ds Max to export Max models into .d5a or .skp formats.
+ANS|False
+END
+
+Q|6|tf
+TEXT|Models synchronized to D5 using the converter can also be updated using the "Reload" feature in D5.
+ANS|True
+END
+
+Q|7|tf
+TEXT|Support section tool flip feature. For section tube, it supports outside sectioning, which can keep its internal model display and better show the internal structure and details of the model.
+ANS|True
+END
+
+Q|8|tf
+TEXT|In 'Fly' and 'Walk' modes, when pressing the Shift key, the speed will become 4 times faster than the original speed. Press the Space key to decelerate the speed.
+ANS|False
+END
+
+Q|9|tf
+TEXT|When the preview quality is precise, part of the effect will be weakened or not displayed. When the preview quality is in smooth mode, you can get the best preview effect.
+ANS|False
+END
+
+Q|10|tf
+TEXT|D5 render provides four basic light sources.
+ANS|True
+END
+
+Q|11|tf
+TEXT|After grouping lights of the same type, the parameters of the lights will be automatically associated. When you select a group of lights in the scene or list, the right sidebar will automatically display the corresponding parameters of that type of light for uniform adjustment.
+ANS|True
+END
+
+Q|12|tf
+TEXT|Due to the high resolution of HDRI which consumes resources during preview, D5 compresses HDRI to 2k for real-time previews while ensuring accurate lighting. The rendered output matches the actual size of the HDRI (up to 8k) during final rendering.
+ANS|True
+END
+
+Q|13|tf
+TEXT|If users want to achieve a pure white background effect, they can use the built-in "Pure White" HDRI background and turn off automatic exposure (manually control the exposure effect).
+ANS|True
+END
+
+Q|14|tf
+TEXT|The Car Paint material has two reflection layers, and the roughness can be defined separately.
+ANS|True
+END
+
+Q|15|tf
+TEXT|Flowing Water Material has 5 different templates. In addition to color, normal, specular, and transparency, support for adjusting the foam, flow velocity, offset parameters.
+ANS|True
+END
+
+Q|16|tf
+TEXT|If the user wants to achieve the round corner effect, they can combine the "Round Corner" under "Advanced" in "Inspector". This allows real-time display and supports customizing the radius of the rounded corners. Users no longer need to separately create chamfer effects during modeling.
+ANS|True
+END
+
+Q|17|tf
+TEXT|Decals supports custom editing.
+ANS|True
+END
+
+Q|18|tf
+TEXT|Users can right-click on the corresponding asset in the Local Library to update the asset's thumbnail. The current options support capturing a picture directly from the D5 preview window or loading an image from the local library folder.
+ANS|True
+END
+
+Q|19|tf
+TEXT|Users can achieve different path effects by adjusting the control point types (curve & straight line) of the path tool.
+ANS|True
+END
+
+Q|20|tf
+TEXT|You can adjust the parameters in batch by multi-selecting and mixing objects with the same properties such as models, lights, paths, particles, and so on.
+ANS|True
+END
+
+Q|21|tf
+TEXT|The same preset parameters can be reused in other projects with one click.
+ANS|True
+END
+
+Q|22|tf
+TEXT|Users cannot customize the AO-Radius parameter to control how much surrounding diffuse light is blocked when objects intersect or are close to each other.
+ANS|False
+END
+
+Q|23|tf
+TEXT|D5 Curated is an independent section in D5 Studio, which contains preset resources created by a group of excellent designers and design teams invited by D5. D5 Curated will be updated continuously to help users create high-quality scenes with ease.
+ANS|True
+END
+
+Q|24|tf
+TEXT|When you select shot, the "Auto View Interval" option in the right sidebar parameter is not ticked by default. After ticking this option, if you change a certain time in the shot, the time interval of each view in the shot will be recalculated automatically, so that the speed is always the same between different views.
+ANS|True
+END
+
+Q|25|tf
+TEXT|Use the shortcut K to quickly create a keyframe.
+ANS|True
+END
+
+Q|26|tf
+TEXT|The environment and post parameters in shot and view can be duplicated and pasted by right click. Right-click on the shot to "update all parameters", and batch update the environment and post parameters of all views in the shot.
+ANS|True
+END
+
+Q|27|tf
+TEXT|When applying the AI Make Seamless option to the textures, users can remove seams either vertically or horizontally to achieve the desired effect. Pressing Ctrl+Z to undo the operation is not supported.
+ANS|True
+END
+
+Q|28|single
 TEXT|After logging in to the account, you can open the Widget in the ( ) and then use the Widget function.
 OPT|a|Tools
 OPT|b|Account
@@ -13,7 +144,153 @@ OPT|d|Preference
 ANS|c
 END
 
-Q|3|multi
+Q|29|single
+TEXT|If the preview screen does not show the corresponding element and the element name is grayed out in the scene resource list as shown in picture 1, it is because ( ).
+OPT|a|The model is hidden
+OPT|b|The model is locked
+OPT|c|The model is lost
+OPT|d|The layer is hidden
+ANS|d
+END
+
+Q|30|single
+TEXT|By filtering the ( ) list on the left side, you can select a specific type of element by dragging a box around it.
+OPT|a|Layer Management
+OPT|b|Select all Objects
+OPT|c|Multi Select
+OPT|d|Object
+ANS|d
+END
+
+Q|31|single
+TEXT|In which mode, the speed is not adjustable?
+OPT|a|Walk
+OPT|b|Orbit
+OPT|c|Fly
+OPT|d|Smooth
+ANS|b
+END
+
+Q|32|single
+TEXT|In D5 Render, which kinds of controls can be hidden by shortcut L?
+OPT|a|Light control
+OPT|b|Particle control
+OPT|c|Path control
+OPT|d|All kinds
+ANS|a
+END
+
+Q|33|single
+TEXT|To individually select a single light or element within a group, you can ( ) that light or element in the preview interface.
+OPT|a|Double-click
+OPT|b|Click
+OPT|c|Ctrl+click
+OPT|d|Alt+click
+ANS|a
+END
+
+Q|34|single
+TEXT|The Sky Color adjustment option is added to the HDRI mode to support hue and ( ) adjustments.
+OPT|a|Hue
+OPT|b|Level
+OPT|c|Saturation
+OPT|d|Contrast
+ANS|c
+END
+
+Q|35|single
+TEXT|Users can adjust the ( ) parameter to control the speed of the water flow animation, enabling the creation of water effects at various speeds as needed.
+OPT|a|Flow Velocity
+OPT|b|Depth
+OPT|c|Normal
+OPT|d|Scattering color
+ANS|a
+END
+
+Q|36|single
+TEXT|D5's transparent material templates allow users to control the transparency of materials with black-and-white maps applied to the ( ) parameter.
+OPT|a|Transparency
+OPT|b|Semi-transparency
+OPT|c|Full transparency
+OPT|d|Opacity
+ANS|d
+END
+
+Q|37|single
+TEXT|Which button in the panel can add the material locally?
+OPT|a|Picture 1
+OPT|b|Picture 2
+OPT|c|Picture 3
+OPT|d|Picture 4
+ANS|c
+END
+
+Q|38|single
+TEXT|Users can press the ( ) key to reduce or add scatter areas to select the scatter objects when using the D5 Scatter.
+OPT|a|Alt
+OPT|b|X
+OPT|c|Shift
+OPT|d|Ctrl
+ANS|b
+END
+
+Q|39|single
+TEXT|Which of the following is not a proper way to use D5 Scatter?
+OPT|a|Further divide the scatter area into several sub areas and manage the sub areas via Scatter Area.
+OPT|b|Erase the created scatter area with the Eraser tool.
+OPT|c|Randomly arrange the overall global growth effect by adjusting the Random Seed parameter.
+OPT|d|Avoid scattering plants or objects in defined areas with the Cull Effect.
+ANS|c
+END
+
+Q|40|single
+TEXT|Click "+Custom LUT" in the drop-down menu to import a 3D LUT file in ( ) format.
+OPT|a|.xmp
+OPT|b|.cube
+OPT|c|.3dl
+OPT|d|.dng
+ANS|b
+END
+
+Q|41|single
+TEXT|When editing videos, the default aspect ratio for new clips is ( ). To adjust the video aspect ratio, select the corresponding clip and modify its aspect ratio in the right sidebar.
+OPT|a|4:3
+OPT|b|1:1
+OPT|c|16:9
+OPT|d|3:2
+ANS|c
+END
+
+Q|42|single
+TEXT|When using the AI Post-Processing feature, if users want to select specific parts of an image for enhancement and leave the remaining unselected parts unchanged, they can ( ).
+OPT|a|Click the AI Enhancer feature to achieve automatic recognition.
+OPT|b|Choose Specified Content in the AI Enhancer to adjust the relevant parameters and click to save the selection (which allows users to assign different weights to different areas, thus addressing the enhancement needs of different materials simultaneously).
+OPT|c|Choose Sharpening or Denoising in the Effect feature, and adjust the Transparency parameter.
+OPT|d|Choose the AI Style Transfer feature and Region-Specific Style Application.
+ANS|b
+END
+
+Q|43|single
+TEXT|Click the button of box selection in the picture, what function can the user see?
+OPT|a|Plugin's Version
+OPT|b|Sync structure of light component
+OPT|c|Global Settings
+OPT|d|Select coordinate switch method
+OPT|e|Texture Folder
+ANS|c
+END
+
+Q|44|multi
+TEXT|Which of the following options correctly describe the function of different display modes?
+OPT|a|"Lit" is the default mode, with a real-time preview of all materials and lights.
+OPT|b|"Clay Model" mode overrides the material with white material, which makes it easier to emphasize the volume of the model.
+OPT|c|"Wireframe" mode shows only edge lines in the scene, which helps observe the lighting.
+OPT|d|"still" button controls the motion of dynamic elements in the scene.
+OPT|e|"Dynamic" button controls the motion of dynamic elements in the scene.
+ANS|a,b,d,e
+END
+
+Q|45|multi
 TEXT|How to hide the light source icons/light controls in the scene?
 OPT|a|Select "Display - Light Source" option in the scene controls on upper right corner of the viewport.
 OPT|b|Use the shortcut L
@@ -22,12 +299,48 @@ OPT|d|Use the shortcut I
 ANS|a,b
 END
 
-Q|4|single
-TEXT|If the preview screen does not show the corresponding element and the element name is grayed out in the scene resource list as shown in picture 1, it is because ( ).
-IMAGE|images/Q29.png
-OPT|a|The model is hidden
-OPT|b|The model is locked
-OPT|c|The model is lost
-OPT|d|The layer is hidden
-ANS|d
+Q|46|multi
+TEXT|To achieve caustics effect, you need to turn on the "caustics" option in both ( ) and ( ).
+OPT|a|Materials
+OPT|b|Environment & Effect
+OPT|c|Lights (including base light and sunlight)
+OPT|d|Models
+ANS|b,c
+END
+
+Q|47|multi
+TEXT|Why doesn't the plant in the scene move with the wind?
+OPT|a|Use plants not supporting wind movement
+OPT|b|Open Smooth Mode in display settings
+OPT|c|"Real-time" in display mode is not turned on
+OPT|d|Paused the animation of wind-moving plants
+OPT|e|Wind effect is not enabled in the environment.
+ANS|a,d,e
+END
+
+Q|48|multi
+TEXT|How can we directly create scatter areas when using D5 Scatter?
+OPT|a|Select the area (model) for scatter directly in the Preview interface.
+OPT|b|Click on Add Scatter Surface-Select Material/Model in the upper navigation bar.
+OPT|c|Create a scatter area by selecting a material or model with the shortcut key X.
+OPT|d|Select the objects for scatter directly from the scene list.
+ANS|a,b,c
+END
+
+Q|49|multi
+TEXT|What modes are included in the stylization of D5?
+OPT|a|Shadow Mode
+OPT|b|AO
+OPT|c|Shading Mode
+OPT|d|Outline Mode
+OPT|e|Z Depth
+ANS|a,c,d,e
+END
+
+Q|50|multi
+TEXT|Which of the following effects can be achieved by using the AI Post-Processing feature?
+OPT|a|Use the AI Enhancer feature to enhance the details of rendered images, including lighting, materials, characters, vehicles and vegetation.
+OPT|b|When using the AI Style Transfer feature, users can choose "Stylized" for a one-click transfer to watercolor, cartoon, scale model, and voxel styles, or choose "Realistic" for a quick transfer to sunset, night, spring, summer, autumn and winter styles.
+OPT|c|If users need to apply effects such as sharpening and denoising to the original image, they can achieve directly through the "Effect" in the AI Post-Processing panel.
+ANS|a,b,c
 END
