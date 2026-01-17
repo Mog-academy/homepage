@@ -146,7 +146,7 @@ END
 
 Q|29|single
 TEXT|If the preview screen does not show the corresponding element and the element name is grayed out in the scene resource list as shown in picture 1, it is because ( ).
-IMAGE|Q29.png
+IMAGE|images/Q29.png
 OPT|a|The model is hidden
 OPT|b|The model is locked
 OPT|c|The model is lost
@@ -219,10 +219,10 @@ END
 
 Q|37|single
 TEXT|Which button in the panel can add the material locally?
-OPT|a|IMAGE|Quiz_Q10_OP1.png
-OPT|b|IMAGE|Quiz_Q10_OP2.png
-OPT|c|IMAGE|Quiz_Q10_OP3.png
-OPT|d|IMAGE|Quiz_Q10_OP4.png
+OPT|a|IMAGE|images/Quiz_Q10_OP1.png
+OPT|b|IMAGE|images/Quiz_Q10_OP2.png
+OPT|c|IMAGE|images/Quiz_Q10_OP3.png
+OPT|d|IMAGE|images/Quiz_Q10_OP4.png
 ANS|c
 END
 
@@ -273,7 +273,7 @@ END
 
 Q|43|single
 TEXT|Click the button of box selection in the picture, what function can the user see?
-IMAGE|Q43.png
+IMAGE|images/Q43.png
 OPT|a|Plugin's Version
 OPT|b|Sync structure of light component
 OPT|c|Global Settings
