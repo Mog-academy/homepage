@@ -271,7 +271,7 @@ OPT|d|Choose the AI Style Transfer feature and Region-Specific Style Application
 ANS|b
 END
 
-Q|43|single
+Q|43|multi
 TEXT|Click the button of box selection in the picture, what function can the user see?
 IMAGE|images/Q43.png
 OPT|a|Plugin's Version
@@ -279,7 +279,7 @@ OPT|b|Sync structure of light component
 OPT|c|Global Settings
 OPT|d|Select coordinate switch method
 OPT|e|Texture Folder
-ANS|c
+ANS|a,b,d
 END
 
 Q|44|multi
