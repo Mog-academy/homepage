@@ -22,12 +22,12 @@ END
 
 Q|5|tf
 TEXT|Users can use the D5 LiveSync for 3ds Max to export Max models into .d5a or .skp formats.
-ANS|False
+ANS|True
 END
 
 Q|6|tf
 TEXT|Models synchronized to D5 using the converter can also be updated using the "Reload" feature in D5.
-ANS|True
+ANS|False
 END
 
 Q|7|tf
@@ -37,7 +37,7 @@ END
 
 Q|8|tf
 TEXT|In 'Fly' and 'Walk' modes, when pressing the Shift key, the speed will become 4 times faster than the original speed. Press the Space key to decelerate the speed.
-ANS|False
+ANS|True
 END
 
 Q|9|tf
@@ -132,7 +132,7 @@ END
 
 Q|27|tf
 TEXT|When applying the AI Make Seamless option to the textures, users can remove seams either vertically or horizontally to achieve the desired effect. Pressing Ctrl+Z to undo the operation is not supported.
-ANS|True
+ANS|False
 END
 
 Q|28|single
@@ -141,11 +141,12 @@ OPT|a|Tools
 OPT|b|Account
 OPT|c|View
 OPT|d|Preference
-ANS|c
+ANS|d
 END
 
 Q|29|single
 TEXT|If the preview screen does not show the corresponding element and the element name is grayed out in the scene resource list as shown in picture 1, it is because ( ).
+IMG|Q29.png
 OPT|a|The model is hidden
 OPT|b|The model is locked
 OPT|c|The model is lost
@@ -177,7 +178,7 @@ OPT|a|Light control
 OPT|b|Particle control
 OPT|c|Path control
 OPT|d|All kinds
-ANS|a
+ANS|d
 END
 
 Q|33|single
@@ -186,7 +187,7 @@ OPT|a|Double-click
 OPT|b|Click
 OPT|c|Ctrl+click
 OPT|d|Alt+click
-ANS|a
+ANS|b
 END
 
 Q|34|single
@@ -231,7 +232,7 @@ OPT|a|Alt
 OPT|b|X
 OPT|c|Shift
 OPT|d|Ctrl
-ANS|b
+ANS|d
 END
 
 Q|39|single
@@ -240,7 +241,7 @@ OPT|a|Further divide the scatter area into several sub areas and manage the sub 
 OPT|b|Erase the created scatter area with the Eraser tool.
 OPT|c|Randomly arrange the overall global growth effect by adjusting the Random Seed parameter.
 OPT|d|Avoid scattering plants or objects in defined areas with the Cull Effect.
-ANS|c
+ANS|b
 END
 
 Q|40|single
@@ -272,6 +273,7 @@ END
 
 Q|43|single
 TEXT|Click the button of box selection in the picture, what function can the user see?
+IMG|Q43.png
 OPT|a|Plugin's Version
 OPT|b|Sync structure of light component
 OPT|c|Global Settings
@@ -287,7 +289,7 @@ OPT|b|"Clay Model" mode overrides the material with white material, which makes 
 OPT|c|"Wireframe" mode shows only edge lines in the scene, which helps observe the lighting.
 OPT|d|"still" button controls the motion of dynamic elements in the scene.
 OPT|e|"Dynamic" button controls the motion of dynamic elements in the scene.
-ANS|a,b,d,e
+ANS|a,b,e
 END
 
 Q|45|multi
@@ -305,7 +307,7 @@ OPT|a|Materials
 OPT|b|Environment & Effect
 OPT|c|Lights (including base light and sunlight)
 OPT|d|Models
-ANS|b,c
+ANS|a,c
 END
 
 Q|47|multi
@@ -315,7 +317,7 @@ OPT|b|Open Smooth Mode in display settings
 OPT|c|"Real-time" in display mode is not turned on
 OPT|d|Paused the animation of wind-moving plants
 OPT|e|Wind effect is not enabled in the environment.
-ANS|a,d,e
+ANS|a,e
 END
 
 Q|48|multi
@@ -324,7 +326,7 @@ OPT|a|Select the area (model) for scatter directly in the Preview interface.
 OPT|b|Click on Add Scatter Surface-Select Material/Model in the upper navigation bar.
 OPT|c|Create a scatter area by selecting a material or model with the shortcut key X.
 OPT|d|Select the objects for scatter directly from the scene list.
-ANS|a,b,c
+ANS|b,c
 END
 
 Q|49|multi
@@ -334,7 +336,7 @@ OPT|b|AO
 OPT|c|Shading Mode
 OPT|d|Outline Mode
 OPT|e|Z Depth
-ANS|a,c,d,e
+ANS|b,d,e
 END
 
 Q|50|multi
