@@ -5,138 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mo.G Academy | Login</title>
     <style>
-      :root {
-        --orange: #ff7a00;
-        --black: #111;
-        --bg: #fff;
-        --radius: 18px;
+      :root { --orange:#ff7a00; --black:#111; --bg:#fff; --radius:18px; }
+      body{
+        margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+        background:var(--bg); color:var(--black); min-height:100vh;
+        display:grid; place-items:center; padding:24px;
       }
-      body {
-        margin: 0;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-        background: var(--bg);
-        color: var(--black);
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 24px;
+      .card{ width:100%; max-width:460px; border:2px solid var(--orange);
+        border-radius:var(--radius); padding:22px; box-sizing:border-box;
       }
-      .card {
-        width: 100%;
-        max-width: 460px;
-        border: 2px solid var(--orange);
-        border-radius: var(--radius);
-        padding: 22px;
-        box-sizing: border-box;
+      .banner{ border:2px solid var(--orange); border-radius:var(--radius);
+        padding:12px 14px; margin-bottom:14px;
       }
-      .banner {
-        border: 2px solid var(--orange);
-        border-radius: var(--radius);
-        padding: 12px 14px;
-        margin-bottom: 14px;
+      h1{ margin:0 0 6px 0; font-size:22px; }
+      p{ margin:0; font-size:14px; line-height:1.5; }
+      label{ display:block; font-size:13px; margin:12px 0 6px 0; }
+      input{
+        width:100%; border:2px solid var(--orange); border-radius:14px;
+        padding:10px 12px; font-size:14px; box-sizing:border-box; outline:none;
       }
-      h1 {
-        margin: 0 0 6px 0;
-        font-size: 22px;
+      .btn{
+        border:2px solid var(--orange); background:var(--orange); color:#fff;
+        border-radius:14px; padding:10px 12px; cursor:pointer;
+        font-weight:700; width:100%;
       }
-      p {
-        margin: 0;
-        font-size: 14px;
-        line-height: 1.5;
+      .btn.secondary{ background:transparent; color:var(--black); }
+      .btn:disabled{ opacity:.6; cursor:not-allowed; }
+      .row{ display:grid; gap:10px; margin-top:16px; }
+      .msg{
+        margin-top:14px; border:2px solid var(--orange); border-radius:14px;
+        padding:10px 12px; font-size:13px; white-space:pre-wrap;
       }
-      label {
-        display: block;
-        font-size: 13px;
-        margin: 12px 0 6px 0;
+      .link{ margin-top:14px; font-size:13px; text-align:center; }
+      .link button{
+        border:none; background:none; color:var(--black); text-decoration:underline;
+        cursor:pointer; font-weight:700; padding:0;
       }
-      input {
-        width: 100%;
-        border: 2px solid var(--orange);
-        border-radius: 14px;
-        padding: 10px 12px;
-        font-size: 14px;
-        box-sizing: border-box;
-        outline: none;
+      .checks{
+        margin-top:14px; border:2px solid var(--orange);
+        border-radius:14px; padding:12px; font-size:13px;
       }
-      .btn {
-        border: 2px solid var(--orange);
-        background: var(--orange);
-        color: #fff;
-        border-radius: 14px;
-        padding: 10px 12px;
-        cursor: pointer;
-        font-weight: 700;
-        width: 100%;
-      }
-      .btn.secondary {
-        background: transparent;
-        color: var(--black);
-      }
-      .btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-      .row {
-        display: grid;
-        gap: 10px;
-        margin-top: 16px;
-      }
-      .msg {
-        margin-top: 14px;
-        border: 2px solid var(--orange);
-        border-radius: 14px;
-        padding: 10px 12px;
-        font-size: 13px;
-        white-space: pre-wrap;
-      }
-      .link {
-        margin-top: 14px;
-        font-size: 13px;
-        text-align: center;
-      }
-      .link button {
-        border: none;
-        background: none;
-        color: var(--black);
-        text-decoration: underline;
-        cursor: pointer;
-        font-weight: 700;
-        padding: 0;
-      }
-      .checks {
-        margin-top: 14px;
-        border: 2px solid var(--orange);
-        border-radius: 14px;
-        padding: 12px;
-        font-size: 13px;
-      }
-      .checkrow {
-        display: flex;
-        gap: 10px;
-        align-items: flex-start;
-        margin: 8px 0;
-      }
-      .checkrow input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        margin-top: 2px;
-      }
-      a {
-        color: var(--black);
-      }
-      .small {
-        margin-top: 10px;
-        font-size: 12px;
-        opacity: 0.8;
-        text-align: center;
-      }
-      .divider {
-        height: 1px;
-        background: rgba(0,0,0,0.08);
-        margin: 14px 0;
-      }
+      .checkrow{ display:flex; gap:10px; align-items:flex-start; margin:8px 0; }
+      .checkrow input[type="checkbox"]{ width:18px; height:18px; margin-top:2px; }
+      a{ color:var(--black); }
+      .small{ margin-top:10px; font-size:12px; opacity:.8; text-align:center; }
     </style>
   </head>
+
   <body>
     <div class="card">
       <div class="banner">
@@ -151,21 +66,13 @@
           <input id="loginEmail" type="email" autocomplete="email" required />
 
           <label for="loginPassword">Password</label>
-          <input
-            id="loginPassword"
-            type="password"
-            autocomplete="current-password"
-            required
-          />
+          <input id="loginPassword" type="password" autocomplete="current-password" required />
 
           <div class="row">
             <button id="loginBtn" class="btn" type="submit">Login</button>
-            <button id="logoutBtn" class="btn secondary" type="button" disabled>
-              Logout
-            </button>
           </div>
 
-          <div id="loginMsg" class="msg" style="display: none;"></div>
+          <div id="loginMsg" class="msg" style="display:none;"></div>
 
           <div class="link">
             New user? <button id="openRegister" type="button">Register here</button>
@@ -194,20 +101,10 @@
           <input id="regEmail2" type="email" autocomplete="email" required />
 
           <label for="regPassword">Password</label>
-          <input
-            id="regPassword"
-            type="password"
-            autocomplete="new-password"
-            required
-          />
+          <input id="regPassword" type="password" autocomplete="new-password" required />
 
           <label for="regPassword2">Confirm password</label>
-          <input
-            id="regPassword2"
-            type="password"
-            autocomplete="new-password"
-            required
-          />
+          <input id="regPassword2" type="password" autocomplete="new-password" required />
 
           <div class="checks">
             <div class="checkrow">
@@ -223,17 +120,13 @@
 
             <div class="checkrow">
               <input id="newsletter" type="checkbox" />
-              <div>
-                I want to receive the newsletter and stay up to date. (optional)
-              </div>
+              <div>I want to receive the newsletter and stay up to date. (optional)</div>
             </div>
           </div>
 
           <div class="row">
             <button id="registerBtn" class="btn" type="submit">Create account</button>
-            <button id="backToLogin" class="btn secondary" type="button">
-              Back to login
-            </button>
+            <button id="backToLogin" class="btn secondary" type="button">Back to login</button>
           </div>
 
           <div id="registerMsg" class="msg" style="display:none;"></div>
@@ -245,209 +138,203 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script>
-      // ===== Supabase (frontend-safe) =====
-      const SUPABASE_URL = "https://yijcnkcaibspxbpvmzhd.supabase.co";
-      const SUPABASE_ANON_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlpamNua2NhaWJzcHhicHZtemhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MjQ0MDksImV4cCI6MjA4NDUwMDQwOX0.NqsgzQ8z9UKahVdbjXp9-yA2Y5F3yFveaF9mLzAXLl4";
-
-      const REDIRECT_AFTER_LOGIN = "https://app.mog-academy.com/student_dashboard";
-      const EMAIL_VERIFY_REDIRECT = "https://mog-academy.com/login/"; // after clicking verification link
-
-      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-      // ===== UI refs =====
+      // ===== View switching MUST work even if Supabase fails to load =====
       const subtitle = document.getElementById("subtitle");
-
       const loginView = document.getElementById("loginView");
       const registerView = document.getElementById("registerView");
 
-      const loginForm = document.getElementById("loginForm");
-      const loginEmail = document.getElementById("loginEmail");
-      const loginPassword = document.getElementById("loginPassword");
-      const loginBtn = document.getElementById("loginBtn");
-      const logoutBtn = document.getElementById("logoutBtn");
-      const loginMsg = document.getElementById("loginMsg");
       const openRegister = document.getElementById("openRegister");
-
-      const registerForm = document.getElementById("registerForm");
-      const fullName = document.getElementById("fullName");
-      const username = document.getElementById("username");
-      const regEmail = document.getElementById("regEmail");
-      const regEmail2 = document.getElementById("regEmail2");
-      const regPassword = document.getElementById("regPassword");
-      const regPassword2 = document.getElementById("regPassword2");
-      const agree = document.getElementById("agree");
-      const newsletter = document.getElementById("newsletter");
-      const registerBtn = document.getElementById("registerBtn");
       const backToLogin = document.getElementById("backToLogin");
+
+      const loginMsg = document.getElementById("loginMsg");
       const registerMsg = document.getElementById("registerMsg");
 
-      function show(el) { el.style.display = "block"; }
-      function hide(el) { el.style.display = "none"; }
+      function show(el){ el.style.display = "block"; }
+      function hide(el){ el.style.display = "none"; }
 
-      function showLogin() {
+      function showMsg(box, text){
+        box.textContent = text;
+        box.style.display = "block";
+      }
+      function hideMsg(box){
+        box.textContent = "";
+        box.style.display = "none";
+      }
+
+      function showLogin(){
         subtitle.textContent = "Login to continue.";
         show(loginView);
         hide(registerView);
-        hideMsg(loginMsg);
+        hideMsg(registerMsg);
       }
 
-      function showRegister() {
+      function showRegister(){
         subtitle.textContent = "Create your student account.";
         hide(loginView);
         show(registerView);
-        hideMsg(registerMsg);
-      }
-
-      function showMsg(box, text) {
-        box.textContent = text;
-        show(box);
-      }
-
-      function hideMsg(box) {
-        box.textContent = "";
-        hide(box);
-      }
-
-      function setLoading(btn, isLoading, label) {
-        btn.disabled = isLoading;
-        btn.textContent = isLoading ? "Please wait..." : label;
-      }
-
-      openRegister.addEventListener("click", showRegister);
-      backToLogin.addEventListener("click", showLogin);
-
-      // ===== LOGIN =====
-      loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
         hideMsg(loginMsg);
-
-        const email = (loginEmail.value || "").trim();
-        const password = loginPassword.value || "";
-
-        if (!email || !password) {
-          showMsg(loginMsg, "Please enter email and password.");
-          return;
-        }
-
-        setLoading(loginBtn, true, "Login");
-
-        try {
-          const { error } = await supabase.auth.signInWithPassword({ email, password });
-          if (error) throw error;
-
-          showMsg(loginMsg, "Login successful. Redirecting...");
-          window.location.href = REDIRECT_AFTER_LOGIN;
-        } catch (err) {
-          showMsg(loginMsg, err?.message || "Login failed.");
-        } finally {
-          setLoading(loginBtn, false, "Login");
-        }
-      });
-
-      // ===== LOGOUT =====
-      logoutBtn.addEventListener("click", async () => {
-        hideMsg(loginMsg);
-        logoutBtn.disabled = true;
-
-        try {
-          const { error } = await supabase.auth.signOut();
-          if (error) throw error;
-          showMsg(loginMsg, "Logged out.");
-        } catch (err) {
-          showMsg(loginMsg, err?.message || "Logout failed.");
-        } finally {
-          await refreshSessionUI();
-        }
-      });
-
-      async function refreshSessionUI() {
-        const { data } = await supabase.auth.getSession();
-        const session = data.session;
-
-        if (session && session.user) {
-          logoutBtn.disabled = false;
-        } else {
-          logoutBtn.disabled = true;
-        }
       }
 
-      // ===== REGISTER =====
-      registerForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        hideMsg(registerMsg);
+      openRegister.addEventListener("click", () => showRegister());
+      backToLogin.addEventListener("click", () => showLogin());
 
-        const nameVal = (fullName.value || "").trim();
-        const userVal = (username.value || "").trim();
-        const email1 = (regEmail.value || "").trim();
-        const email2 = (regEmail2.value || "").trim();
-        const pass1 = regPassword.value || "";
-        const pass2 = regPassword2.value || "";
+      // ===== Supabase loader with fallback =====
+      function loadScript(src){
+        return new Promise((resolve, reject) => {
+          const s = document.createElement("script");
+          s.src = src;
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
 
-        if (!nameVal || !userVal || !email1 || !email2 || !pass1 || !pass2) {
-          showMsg(registerMsg, "Please fill all fields.");
-          return;
-        }
-
-        if (email1.toLowerCase() !== email2.toLowerCase()) {
-          showMsg(registerMsg, "Emails do not match.");
-          return;
-        }
-
-        if (pass1 !== pass2) {
-          showMsg(registerMsg, "Passwords do not match.");
-          return;
-        }
-
-        if (!agree.checked) {
-          showMsg(registerMsg, "You must agree to the Terms & Conditions and Privacy Policy.");
-          return;
-        }
-
-        setLoading(registerBtn, true, "Create account");
-
+      async function initSupabaseAndAuth(){
+        // Try jsDelivr then unpkg
         try {
-          // Store full_name + username + newsletter in user metadata
-          const { error } = await supabase.auth.signUp({
-            email: email1,
-            password: pass1,
-            options: {
-              emailRedirectTo: EMAIL_VERIFY_REDIRECT,
-              data: {
-                full_name: nameVal,
-                username: userVal,
-                newsletter_opt_in: !!newsletter.checked,
+          await loadScript("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2");
+        } catch {
+          try {
+            await loadScript("https://unpkg.com/@supabase/supabase-js@2");
+          } catch {
+            showMsg(loginMsg, "Supabase library failed to load. Please refresh or try again later.");
+            return null;
+          }
+        }
+
+        if (!window.supabase) {
+          showMsg(loginMsg, "Supabase library did not initialize correctly. Please refresh.");
+          return null;
+        }
+
+        const SUPABASE_URL = "https://yijcnkcaibspxbpvmzhd.supabase.co";
+        const SUPABASE_ANON_KEY =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlpamNua2NhaWJzcHhicHZtemhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MjQ0MDksImV4cCI6MjA4NDUwMDQwOX0.NqsgzQ8z9UKahVdbjXp9-yA2Y5F3yFveaF9mLzAXLl4";
+
+        return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+
+      // ===== Auth handlers (only after Supabase is ready) =====
+      (async () => {
+        const supabase = await initSupabaseAndAuth();
+        if (!supabase) return;
+
+        const REDIRECT_AFTER_LOGIN = "https://app.mog-academy.com/student_dashboard";
+        const EMAIL_VERIFY_REDIRECT = "https://mog-academy.com/login/";
+
+        const loginForm = document.getElementById("loginForm");
+        const loginEmail = document.getElementById("loginEmail");
+        const loginPassword = document.getElementById("loginPassword");
+        const loginBtn = document.getElementById("loginBtn");
+
+        const registerForm = document.getElementById("registerForm");
+        const fullName = document.getElementById("fullName");
+        const username = document.getElementById("username");
+        const regEmail = document.getElementById("regEmail");
+        const regEmail2 = document.getElementById("regEmail2");
+        const regPassword = document.getElementById("regPassword");
+        const regPassword2 = document.getElementById("regPassword2");
+        const agree = document.getElementById("agree");
+        const newsletter = document.getElementById("newsletter");
+        const registerBtn = document.getElementById("registerBtn");
+
+        function setLoading(btn, isLoading, label){
+          btn.disabled = isLoading;
+          btn.textContent = isLoading ? "Please wait..." : label;
+        }
+
+        loginForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          hideMsg(loginMsg);
+
+          const email = (loginEmail.value || "").trim();
+          const password = loginPassword.value || "";
+
+          if (!email || !password) {
+            showMsg(loginMsg, "Please enter email and password.");
+            return;
+          }
+
+          setLoading(loginBtn, true, "Login");
+
+          try {
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+
+            showMsg(loginMsg, "Login successful. Redirecting...");
+            window.location.href = REDIRECT_AFTER_LOGIN;
+          } catch (err) {
+            showMsg(loginMsg, err?.message || "Login failed.");
+          } finally {
+            setLoading(loginBtn, false, "Login");
+          }
+        });
+
+        registerForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          hideMsg(registerMsg);
+
+          const nameVal = (fullName.value || "").trim();
+          const userVal = (username.value || "").trim();
+          const email1 = (regEmail.value || "").trim();
+          const email2 = (regEmail2.value || "").trim();
+          const pass1 = regPassword.value || "";
+          const pass2 = regPassword2.value || "";
+
+          if (!nameVal || !userVal || !email1 || !email2 || !pass1 || !pass2) {
+            showMsg(registerMsg, "Please fill all fields.");
+            return;
+          }
+          if (email1.toLowerCase() !== email2.toLowerCase()) {
+            showMsg(registerMsg, "Emails do not match.");
+            return;
+          }
+          if (pass1 !== pass2) {
+            showMsg(registerMsg, "Passwords do not match.");
+            return;
+          }
+          if (!agree.checked) {
+            showMsg(registerMsg, "You must agree to the Terms & Conditions and Privacy Policy.");
+            return;
+          }
+
+          setLoading(registerBtn, true, "Create account");
+
+          try {
+            const { error } = await supabase.auth.signUp({
+              email: email1,
+              password: pass1,
+              options: {
+                emailRedirectTo: EMAIL_VERIFY_REDIRECT,
+                data: {
+                  full_name: nameVal,
+                  username: userVal,
+                  newsletter_opt_in: !!newsletter.checked,
+                },
               },
-            },
-          });
+            });
+            if (error) throw error;
 
-          if (error) throw error;
+            showMsg(
+              registerMsg,
+              "Registration successful.\nCheck your email to verify your account.\nAfter verification, come back here and login."
+            );
 
-          showMsg(
-            registerMsg,
-            "Registration successful.\nPlease check your email to verify your account.\nAfter verification, come back here and login."
-          );
+            setTimeout(() => {
+              registerForm.reset();
+              showLogin();
+              showMsg(loginMsg, "Account created. Please login after verifying your email.");
+            }, 900);
+          } catch (err) {
+            showMsg(registerMsg, err?.message || "Registration failed.");
+          } finally {
+            setLoading(registerBtn, false, "Create account");
+          }
+        });
 
-          // Clear form and return to login after a short pause
-          setTimeout(() => {
-            registerForm.reset();
-            showLogin();
-            showMsg(loginMsg, "Account created. Please login after verifying your email.");
-          }, 1200);
-        } catch (err) {
-          showMsg(registerMsg, err?.message || "Registration failed.");
-        } finally {
-          setLoading(registerBtn, false, "Create account");
-        }
-      });
-
-      // initial
-      showLogin();
-      refreshSessionUI();
-      supabase.auth.onAuthStateChange(() => refreshSessionUI());
+        showLogin();
+      })();
     </script>
   </body>
 </html>
