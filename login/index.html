@@ -5,25 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mo.G Academy | Login</title>
     <style>
-      :root { --orange:#ff7a00; --black:#111; --bg:#fff; --radius:18px; --muted:#7a7a7a; --good:#1f8b3a; --bad:#c62828; }
+      :root{
+        --orange:#ff7a00; --black:#111; --bg:#fff; --radius:18px;
+        --muted:#7a7a7a; --good:#1f8b3a; --bad:#c62828;
+      }
       body{
         margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
         background:var(--bg); color:var(--black); min-height:100vh;
         display:grid; place-items:center; padding:24px;
       }
-      .card{ width:100%; max-width:460px; border:2px solid var(--orange);
+      .card{
+        width:100%; max-width:460px; border:2px solid var(--orange);
         border-radius:var(--radius); padding:22px; box-sizing:border-box;
       }
-      .banner{ border:2px solid var(--orange); border-radius:var(--radius);
+      .banner{
+        border:2px solid var(--orange); border-radius:var(--radius);
         padding:12px 14px; margin-bottom:14px;
       }
       .brandRow{ display:flex; align-items:center; gap:10px; }
+      .brandRow a{ display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
       .brandRow img{ width:34px; height:34px; object-fit:contain; }
       h1{ margin:0 0 2px 0; font-size:22px; }
       p{ margin:0; font-size:14px; line-height:1.5; }
 
       label{ display:block; font-size:13px; margin:12px 0 6px 0; }
-
       .inputWrap{ position:relative; }
       input{
         width:100%; border:2px solid var(--orange); border-radius:14px;
@@ -57,9 +62,17 @@
         font-size:12px;
         color:var(--muted);
         line-height:1.35;
+        white-space:pre-line;
       }
       .hint.good{ color:var(--good); }
       .hint.bad{ color:var(--bad); }
+
+      .rules{ margin-top:6px; font-size:12px; line-height:1.35; white-space:pre-line; }
+      .rule{ display:block; color:var(--muted); }
+      .rule.req.bad{ color:var(--bad); }
+      .rule.req.good{ color:var(--good); }
+      .rule.opt{ color:var(--muted); }
+      .rule.opt.good{ color:var(--good); }
 
       .link{ margin-top:14px; font-size:13px; text-align:center; }
       .link button{
@@ -83,11 +96,13 @@
     <div class="card">
       <div class="banner">
         <div class="brandRow">
-          <img src="/images/logo.png" alt="Mo.G Academy Logo" />
-          <div>
-            <h1>Mo.G Academy</h1>
-            <p id="subtitle">Student Login</p>
-          </div>
+          <a href="https://mog-academy.com" aria-label="Go to Mo.G Academy homepage">
+            <img src="/images/logo.png" alt="Mo.G Academy Logo" />
+            <div>
+              <h1>Mo.G Academy</h1>
+              <p id="subtitle">Student Login</p>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -114,12 +129,11 @@
           <div id="loginMsg" class="msg" style="display:none;"></div>
 
           <div class="link">
-            New user? <button id="openRegister" type="button">Register here</button>
+            <button id="openForgot" type="button">Forgot password?</button>
           </div>
 
-          <div class="small">
-            After login you’ll be redirected to
-            <strong>app.mog-academy.com/student_dashboard</strong>.
+          <div class="link">
+            New user? <button id="openRegister" type="button">Register here</button>
           </div>
         </form>
       </div>
@@ -152,18 +166,16 @@
           <label for="regPassword">Password</label>
           <div class="inputWrap">
             <input id="regPassword" type="password" autocomplete="new-password" required />
-            <button class="togglePass" id="toggleRegPass" type="button" aria-label="Show password">
-              <img id="toggleRegPassIcon" src="/images/showpass.svg" alt="" />
+            <!-- One toggle controls BOTH password fields -->
+            <button class="togglePass" id="toggleRegPassBoth" type="button" aria-label="Show password">
+              <img id="toggleRegPassBothIcon" src="/images/showpass.svg" alt="" />
             </button>
           </div>
-          <div id="passHint" class="hint" style="display:none;"></div>
+          <div id="passRules" class="rules" style="display:none;"></div>
 
           <label for="regPassword2">Confirm password</label>
           <div class="inputWrap">
-            <input id="regPassword2" type="password" autocomplete="new-password" required />
-            <button class="togglePass" id="toggleRegPass2" type="button" aria-label="Show password">
-              <img id="toggleRegPass2Icon" src="/images/showpass.svg" alt="" />
-            </button>
+            <input id="regPassword2" class="noIcon" type="password" autocomplete="new-password" required />
           </div>
           <div id="pass2Hint" class="hint" style="display:none;"></div>
 
@@ -197,19 +209,75 @@
           </div>
         </form>
       </div>
+
+      <!-- FORGOT PASSWORD VIEW -->
+      <div id="forgotView" style="display:none;">
+        <form id="forgotForm">
+          <label for="forgotEmail">Enter your email</label>
+          <div class="inputWrap">
+            <input id="forgotEmail" class="noIcon" type="email" autocomplete="email" required />
+          </div>
+
+          <div class="row">
+            <button id="forgotBtn" class="btn" type="submit">Send reset link</button>
+            <button id="backToLogin2" class="btn secondary" type="button">Back to login</button>
+          </div>
+
+          <div id="forgotMsg" class="msg" style="display:none;"></div>
+
+          <div class="small">
+            You’ll receive a secure link to set a new password.
+          </div>
+        </form>
+      </div>
+
+      <!-- RESET PASSWORD VIEW (shown automatically when user clicks reset link) -->
+      <div id="resetView" style="display:none;">
+        <form id="resetForm">
+          <label for="newPass">New password</label>
+          <div class="inputWrap">
+            <input id="newPass" type="password" autocomplete="new-password" required />
+            <button class="togglePass" id="toggleResetPassBoth" type="button" aria-label="Show password">
+              <img id="toggleResetPassBothIcon" src="/images/showpass.svg" alt="" />
+            </button>
+          </div>
+          <div id="resetRules" class="rules" style="display:none;"></div>
+
+          <label for="newPass2">Confirm new password</label>
+          <div class="inputWrap">
+            <input id="newPass2" class="noIcon" type="password" autocomplete="new-password" required />
+          </div>
+          <div id="resetMatchHint" class="hint" style="display:none;"></div>
+
+          <div class="row">
+            <button id="resetBtn" class="btn" type="submit">Update password</button>
+            <button id="backToLogin3" class="btn secondary" type="button">Back to login</button>
+          </div>
+
+          <div id="resetMsg" class="msg" style="display:none;"></div>
+        </form>
+      </div>
     </div>
 
     <script>
       // ===== View switching MUST work even if Supabase fails to load =====
       const subtitle = document.getElementById("subtitle");
+
       const loginView = document.getElementById("loginView");
       const registerView = document.getElementById("registerView");
+      const forgotView = document.getElementById("forgotView");
+      const resetView = document.getElementById("resetView");
 
       const openRegister = document.getElementById("openRegister");
       const backToLogin = document.getElementById("backToLogin");
+      const openForgot = document.getElementById("openForgot");
+      const backToLogin2 = document.getElementById("backToLogin2");
+      const backToLogin3 = document.getElementById("backToLogin3");
 
       const loginMsg = document.getElementById("loginMsg");
       const registerMsg = document.getElementById("registerMsg");
+      const forgotMsg = document.getElementById("forgotMsg");
+      const resetMsg = document.getElementById("resetMsg");
 
       function show(el){ el.style.display = "block"; }
       function hide(el){ el.style.display = "none"; }
@@ -223,22 +291,37 @@
         box.style.display = "none";
       }
 
-      function showLogin(){
-        subtitle.textContent = "Student Login";
-        show(loginView);
-        hide(registerView);
-        hideMsg(registerMsg);
+      function showOnly(view){
+        hide(loginView); hide(registerView); hide(forgotView); hide(resetView);
+        show(view);
       }
 
+      function showLogin(){
+        subtitle.textContent = "Student Login";
+        showOnly(loginView);
+        hideMsg(registerMsg); hideMsg(forgotMsg); hideMsg(resetMsg);
+      }
       function showRegister(){
         subtitle.textContent = "Create your student account";
-        hide(loginView);
-        show(registerView);
-        hideMsg(loginMsg);
+        showOnly(registerView);
+        hideMsg(loginMsg); hideMsg(forgotMsg); hideMsg(resetMsg);
+      }
+      function showForgot(){
+        subtitle.textContent = "Reset your password";
+        showOnly(forgotView);
+        hideMsg(loginMsg); hideMsg(registerMsg); hideMsg(resetMsg);
+      }
+      function showReset(){
+        subtitle.textContent = "Set a new password";
+        showOnly(resetView);
+        hideMsg(loginMsg); hideMsg(registerMsg); hideMsg(forgotMsg);
       }
 
       openRegister.addEventListener("click", () => showRegister());
       backToLogin.addEventListener("click", () => showLogin());
+      openForgot.addEventListener("click", () => showForgot());
+      backToLogin2.addEventListener("click", () => showLogin());
+      backToLogin3.addEventListener("click", () => showLogin());
 
       // ===== Supabase loader with fallback =====
       function loadScript(src){
@@ -273,28 +356,7 @@
         return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       }
 
-      // ===== Helpers for live validation UI =====
-      function setHint(el, text, kind){ // kind: "good" | "bad" | ""
-        if (!text) { el.style.display = "none"; el.textContent = ""; el.className = "hint"; return; }
-        el.style.display = "block";
-        el.textContent = text;
-        el.className = "hint" + (kind ? " " + kind : "");
-      }
-
-      function hasUppercase(s){ return /[A-Z]/.test(s); }
-      function hasSpecial(s){ return /[^A-Za-z0-9]/.test(s); }
-
-      function passwordStatus(pass){
-        const lenOk = pass.length >= 8; // required
-        const upperOk = hasUppercase(pass); // optional
-        const specialOk = hasSpecial(pass); // optional
-        return { lenOk, upperOk, specialOk };
-      }
-
-      function normalizeUsername(u){
-        return (u || "").trim();
-      }
-
+      // ===== Helpers =====
       function debounce(fn, ms){
         let t;
         return (...args) => {
@@ -302,31 +364,65 @@
           t = setTimeout(() => fn(...args), ms);
         };
       }
+      function normalizeUsername(u){ return (u || "").trim(); }
+      function hasUppercase(s){ return /[A-Z]/.test(s); }
+      function hasSpecial(s){ return /[^A-Za-z0-9]/.test(s); }
 
-      function setupShowPassword(inputEl, btnEl, iconEl){
+      function setLoading(btn, isLoading, label){
+        btn.disabled = isLoading;
+        btn.textContent = isLoading ? "Please wait..." : label;
+      }
+
+      function renderPassRules(container, pass){
+        const lenOk = pass.length >= 8;          // required
+        const upperOk = hasUppercase(pass);      // optional
+        const specialOk = hasSpecial(pass);      // optional
+
+        container.style.display = "block";
+        container.innerHTML = [
+          `<span class="rule req ${lenOk ? "good" : "bad"}">${lenOk ? "✓" : "✗"} At least 8 characters (required)</span>`,
+          `<span class="rule opt ${upperOk ? "good" : ""}">${upperOk ? "✓" : "•"} Include 1 uppercase letter (optional)</span>`,
+          `<span class="rule opt ${specialOk ? "good" : ""}">${specialOk ? "✓" : "•"} Include 1 special character (optional)</span>`
+        ].join("");
+
+        return { lenOk, upperOk, specialOk };
+      }
+
+      function setHint(el, text, kind){
+        if (!text) { el.style.display="none"; el.textContent=""; el.className="hint"; return; }
+        el.style.display="block";
+        el.textContent=text;
+        el.className="hint" + (kind ? (" " + kind) : "");
+      }
+
+      function setupShowPasswordForTwoFields(field1, field2, btn, icon){
         let shown = false;
-        btnEl.addEventListener("click", () => {
+        btn.addEventListener("click", () => {
           shown = !shown;
-          inputEl.type = shown ? "text" : "password";
-          iconEl.src = shown ? "/images/showpass_on.svg" : "/images/showpass.svg";
+          const type = shown ? "text" : "password";
+          field1.type = type;
+          field2.type = type;
+          icon.src = shown ? "/images/showpass_on.svg" : "/images/showpass.svg";
         });
       }
 
-      // ===== Auth handlers (only after Supabase is ready) =====
+      // ===== Main =====
       (async () => {
         const supabase = await initSupabase();
         if (!supabase) return;
 
-        const REDIRECT_AFTER_LOGIN = "https://app.mog-academy.com/student_dashboard";
         const EMAIL_VERIFY_REDIRECT = "https://mog-academy.com/login/";
+        const PASSWORD_RESET_REDIRECT = "https://mog-academy.com/login/"; // same page handles reset state
+        const REDIRECT_AFTER_LOGIN = "https://app.mog-academy.com/student_dashboard";
 
-        // Login refs
+        // Refs
         const loginForm = document.getElementById("loginForm");
         const loginEmail = document.getElementById("loginEmail");
         const loginPassword = document.getElementById("loginPassword");
         const loginBtn = document.getElementById("loginBtn");
+        const toggleLoginPass = document.getElementById("toggleLoginPass");
+        const toggleLoginPassIcon = document.getElementById("toggleLoginPassIcon");
 
-        // Register refs
         const registerForm = document.getElementById("registerForm");
         const fullName = document.getElementById("fullName");
         const username = document.getElementById("username");
@@ -340,33 +436,51 @@
 
         const usernameHint = document.getElementById("usernameHint");
         const emailHint = document.getElementById("emailHint");
-        const passHint = document.getElementById("passHint");
+        const passRules = document.getElementById("passRules");
         const pass2Hint = document.getElementById("pass2Hint");
 
-        // Show password icons
-        setupShowPassword(
-          loginPassword,
-          document.getElementById("toggleLoginPass"),
-          document.getElementById("toggleLoginPassIcon")
-        );
-        setupShowPassword(
+        const forgotForm = document.getElementById("forgotForm");
+        const forgotEmail = document.getElementById("forgotEmail");
+        const forgotBtn = document.getElementById("forgotBtn");
+
+        const resetForm = document.getElementById("resetForm");
+        const newPass = document.getElementById("newPass");
+        const newPass2 = document.getElementById("newPass2");
+        const resetBtn = document.getElementById("resetBtn");
+        const resetRules = document.getElementById("resetRules");
+        const resetMatchHint = document.getElementById("resetMatchHint");
+        const toggleResetPassBoth = document.getElementById("toggleResetPassBoth");
+        const toggleResetPassBothIcon = document.getElementById("toggleResetPassBothIcon");
+
+        // Login show password (single field)
+        (function(){
+          let shown = false;
+          toggleLoginPass.addEventListener("click", () => {
+            shown = !shown;
+            loginPassword.type = shown ? "text" : "password";
+            toggleLoginPassIcon.src = shown ? "/images/showpass_on.svg" : "/images/showpass.svg";
+          });
+        })();
+
+        // Register show password: one toggle controls BOTH password fields
+        setupShowPasswordForTwoFields(
           regPassword,
-          document.getElementById("toggleRegPass"),
-          document.getElementById("toggleRegPassIcon")
-        );
-        setupShowPassword(
           regPassword2,
-          document.getElementById("toggleRegPass2"),
-          document.getElementById("toggleRegPass2Icon")
+          document.getElementById("toggleRegPassBoth"),
+          document.getElementById("toggleRegPassBothIcon")
         );
 
-        function setLoading(btn, isLoading, label){
-          btn.disabled = isLoading;
-          btn.textContent = isLoading ? "Please wait..." : label;
-        }
+        // Reset show password: one toggle controls BOTH reset password fields
+        setupShowPasswordForTwoFields(
+          newPass,
+          newPass2,
+          toggleResetPassBoth,
+          toggleResetPassBothIcon
+        );
 
-        // ===== Live validation state =====
+        // ===== Dynamic checks =====
         let usernameAvailable = false;
+        let emailMatches = false;
 
         const checkUsername = debounce(async () => {
           const u = normalizeUsername(username.value);
@@ -376,8 +490,6 @@
             setHint(usernameHint, "Username must be at least 3 characters.", "bad");
             return;
           }
-
-          // Basic allowed chars hint (not blocking)
           if (!/^[a-zA-Z0-9._-]+$/.test(u)) {
             usernameAvailable = false;
             setHint(usernameHint, "Use only letters, numbers, dot, underscore, or dash.", "bad");
@@ -391,70 +503,65 @@
             if (error) throw error;
 
             usernameAvailable = !!data;
-            if (usernameAvailable) {
-              setHint(usernameHint, "Available", "good");
-            } else {
-              setHint(usernameHint, "Username not available", "bad");
-            }
-          } catch (e) {
+            setHint(usernameHint, usernameAvailable ? "Available" : "Username not available", usernameAvailable ? "good" : "bad");
+          } catch {
             usernameAvailable = false;
             setHint(usernameHint, "Could not check username right now.", "bad");
           }
         }, 350);
 
         username.addEventListener("input", () => {
-          setHint(usernameHint, "", "");
           usernameAvailable = false;
+          setHint(usernameHint, "", "");
           checkUsername();
         });
 
         function validateEmailsLive(){
           const e1 = (regEmail.value || "").trim();
           const e2 = (regEmail2.value || "").trim();
-          if (!e1 && !e2) { setHint(emailHint, "", ""); return; }
-          if (!e2) { setHint(emailHint, "Confirm your email to match.", ""); return; }
+
+          if (!e1 && !e2) { emailMatches = false; setHint(emailHint, "", ""); return; }
+          if (!e2) { emailMatches = false; setHint(emailHint, "Confirm your email to match.", ""); return; }
+
           if (e1.toLowerCase() === e2.toLowerCase()) {
+            emailMatches = true;
             setHint(emailHint, "Emails match", "good");
           } else {
+            emailMatches = false;
             setHint(emailHint, "Emails do not match", "bad");
           }
         }
-
         regEmail.addEventListener("input", validateEmailsLive);
         regEmail2.addEventListener("input", validateEmailsLive);
 
-        function validatePasswordLive(){
-          const p = regPassword.value || "";
-          const s = passwordStatus(p);
+        function validatePassMatchLive(passEl1, passEl2, hintEl){
+          const p1 = passEl1.value || "";
+          const p2 = passEl2.value || "";
 
-          const lines = [];
-          // required
-          lines.push(`${s.lenOk ? "✓" : "✗"} At least 8 characters (required)`);
-          // optional
-          lines.push(`${s.upperOk ? "✓" : "•"} Include 1 uppercase letter (optional)`);
-          lines.push(`${s.specialOk ? "✓" : "•"} Include 1 special character (optional)`);
+          if (!p1 && !p2) { setHint(hintEl, "", ""); return; }
+          if (!p2) { setHint(hintEl, "Confirm your password.", ""); return; }
 
-          const kind = s.lenOk ? "" : "bad";
-          setHint(passHint, lines.join("\n"), kind);
-
-          validatePasswordMatchLive();
+          if (p1 === p2) setHint(hintEl, "Passwords match", "good");
+          else setHint(hintEl, "Passwords do not match", "bad");
         }
 
-        function validatePasswordMatchLive(){
-          const p1 = regPassword.value || "";
-          const p2 = regPassword2.value || "";
+        regPassword.addEventListener("input", () => {
+          renderPassRules(passRules, regPassword.value || "");
+          validatePassMatchLive(regPassword, regPassword2, pass2Hint);
+        });
+        regPassword2.addEventListener("input", () => validatePassMatchLive(regPassword, regPassword2, pass2Hint));
 
-          if (!p2 && !p1) { setHint(pass2Hint, "", ""); return; }
-          if (!p2) { setHint(pass2Hint, "Confirm your password.", ""); return; }
-          if (p1 === p2) {
-            setHint(pass2Hint, "Passwords match", "good");
-          } else {
-            setHint(pass2Hint, "Passwords do not match", "bad");
-          }
+        newPass.addEventListener("input", () => {
+          renderPassRules(resetRules, newPass.value || "");
+          validatePassMatchLive(newPass, newPass2, resetMatchHint);
+        });
+        newPass2.addEventListener("input", () => validatePassMatchLive(newPass, newPass2, resetMatchHint));
+
+        // ===== Email already registered check (reliable way) =====
+        function isEmailAlreadyRegisteredError(err){
+          const msg = (err?.message || "").toLowerCase();
+          return msg.includes("already registered") || msg.includes("user already") || msg.includes("email") && msg.includes("registered");
         }
-
-        regPassword.addEventListener("input", validatePasswordLive);
-        regPassword2.addEventListener("input", validatePasswordMatchLive);
 
         // ===== LOGIN submit =====
         loginForm.addEventListener("submit", async (e) => {
@@ -484,7 +591,7 @@
           }
         });
 
-        // ===== REGISTER submit (still validates hard rules) =====
+        // ===== REGISTER submit =====
         registerForm.addEventListener("submit", async (e) => {
           e.preventDefault();
           hideMsg(registerMsg);
@@ -496,7 +603,8 @@
           const pass1 = regPassword.value || "";
           const pass2 = regPassword2.value || "";
 
-          // Live validation already guides; we enforce required parts here:
+          const lenOk = pass1.length >= 8;
+
           if (!nameVal || !userVal || !email1 || !email2 || !pass1 || !pass2) {
             showMsg(registerMsg, "Please fill all fields.");
             return;
@@ -505,7 +613,7 @@
             showMsg(registerMsg, "Emails do not match.");
             return;
           }
-          if (pass1.length < 8) {
+          if (!lenOk) {
             showMsg(registerMsg, "Password must be at least 8 characters.");
             return;
           }
@@ -537,6 +645,7 @@
                 },
               },
             });
+
             if (error) throw error;
 
             showMsg(
@@ -547,22 +656,107 @@
             setTimeout(() => {
               registerForm.reset();
               usernameAvailable = false;
+              emailMatches = false;
               setHint(usernameHint, "", "");
               setHint(emailHint, "", "");
-              setHint(passHint, "", "");
+              passRules.style.display = "none";
               setHint(pass2Hint, "", "");
               showLogin();
               showMsg(loginMsg, "Account created. Please login after verifying your email.");
             }, 900);
+
           } catch (err) {
-            showMsg(registerMsg, err?.message || "Registration failed.");
+            if (isEmailAlreadyRegisteredError(err)) {
+              showMsg(registerMsg, "Email already registered, login here.");
+              // move user to login view after a moment
+              setTimeout(() => {
+                showLogin();
+                loginEmail.value = email1;
+                showMsg(loginMsg, "Email already registered. Please login.");
+              }, 900);
+            } else {
+              showMsg(registerMsg, err?.message || "Registration failed.");
+            }
           } finally {
             setLoading(registerBtn, false, "Create account");
           }
         });
 
-        // Initial view
-        showLogin();
+        // ===== Forgot password: send secure reset link =====
+        forgotForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          hideMsg(forgotMsg);
+
+          const email = (forgotEmail.value || "").trim();
+          if (!email) { showMsg(forgotMsg, "Please enter your email."); return; }
+
+          setLoading(forgotBtn, true, "Send reset link");
+          try {
+            const { error } = await supabase.auth.resetPasswordForEmail(email, {
+              redirectTo: PASSWORD_RESET_REDIRECT
+            });
+            if (error) throw error;
+
+            showMsg(
+              forgotMsg,
+              "If an account exists for this email, a reset link has been sent.\nCheck your inbox."
+            );
+          } catch (err) {
+            showMsg(forgotMsg, err?.message || "Could not send reset email.");
+          } finally {
+            setLoading(forgotBtn, false, "Send reset link");
+          }
+        });
+
+        // ===== Reset password flow detection =====
+        // When user clicks the reset link, Supabase triggers PASSWORD_RECOVERY event.
+        supabase.auth.onAuthStateChange((event) => {
+          if (event === "PASSWORD_RECOVERY") {
+            showReset();
+            renderPassRules(resetRules, newPass.value || "");
+          }
+        });
+
+        // If the reset link opened this page, sometimes the event fires after init; we also check URL hash.
+        if (window.location.hash && window.location.hash.toLowerCase().includes("type=recovery")) {
+          showReset();
+        } else {
+          showLogin();
+        }
+
+        // ===== Reset password submit =====
+        resetForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          hideMsg(resetMsg);
+
+          const p1 = newPass.value || "";
+          const p2 = newPass2.value || "";
+          const lenOk = p1.length >= 8;
+
+          if (!lenOk) { showMsg(resetMsg, "Password must be at least 8 characters."); return; }
+          if (p1 !== p2) { showMsg(resetMsg, "Passwords do not match."); return; }
+
+          setLoading(resetBtn, true, "Update password");
+          try {
+            const { error } = await supabase.auth.updateUser({ password: p1 });
+            if (error) throw error;
+
+            showMsg(resetMsg, "Password updated successfully. You can now login.");
+            setTimeout(() => {
+              resetForm.reset();
+              resetRules.style.display = "none";
+              setHint(resetMatchHint, "", "");
+              // Clean the URL hash so it doesn't reopen reset view next time
+              history.replaceState(null, "", window.location.pathname);
+              showLogin();
+            }, 900);
+          } catch (err) {
+            showMsg(resetMsg, err?.message || "Could not update password.");
+          } finally {
+            setLoading(resetBtn, false, "Update password");
+          }
+        });
+
       })();
     </script>
   </body>
