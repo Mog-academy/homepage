@@ -168,7 +168,7 @@
             <input id="regPassword" type="password" autocomplete="new-password" required />
             <!-- One toggle controls BOTH password fields -->
             <button class="togglePass" id="toggleRegPassBoth" type="button" aria-label="Show password">
-              <img id="toggleRegPassBothIcon" src="loginlogin/images/showpass.svg" alt="" />
+              <img id="toggleRegPassBothIcon" src="login/images/showpass.svg" alt="" />
             </button>
           </div>
           <div id="passRules" class="rules" style="display:none;"></div>
@@ -402,7 +402,7 @@
           const type = shown ? "text" : "password";
           field1.type = type;
           field2.type = type;
-          icon.src = shown ? "loginlogin/images/showpass_on.svg" : "login/images/showpass.svg";
+          icon.src = shown ? "login/images/showpass_on.svg" : "login/images/showpass.svg";
         });
       }
 
