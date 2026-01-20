@@ -23,7 +23,7 @@
       }
       .card {
         width: 100%;
-        max-width: 420px;
+        max-width: 460px;
         border: 2px solid var(--orange);
         border-radius: var(--radius);
         padding: 22px;
@@ -44,25 +44,6 @@
         font-size: 14px;
         line-height: 1.5;
       }
-      .tabs {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin: 16px 0 14px 0;
-      }
-      .tabbtn {
-        border: 2px solid var(--orange);
-        background: transparent;
-        color: var(--black);
-        border-radius: 14px;
-        padding: 10px 12px;
-        cursor: pointer;
-        font-weight: 600;
-      }
-      .tabbtn.active {
-        background: var(--orange);
-        color: #fff;
-      }
       label {
         display: block;
         font-size: 13px;
@@ -77,11 +58,6 @@
         box-sizing: border-box;
         outline: none;
       }
-      .row {
-        display: grid;
-        gap: 10px;
-        margin-top: 16px;
-      }
       .btn {
         border: 2px solid var(--orange);
         background: var(--orange);
@@ -90,6 +66,7 @@
         padding: 10px 12px;
         cursor: pointer;
         font-weight: 700;
+        width: 100%;
       }
       .btn.secondary {
         background: transparent;
@@ -99,6 +76,11 @@
         opacity: 0.6;
         cursor: not-allowed;
       }
+      .row {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px;
+      }
       .msg {
         margin-top: 14px;
         border: 2px solid var(--orange);
@@ -107,13 +89,51 @@
         font-size: 13px;
         white-space: pre-wrap;
       }
+      .link {
+        margin-top: 14px;
+        font-size: 13px;
+        text-align: center;
+      }
+      .link button {
+        border: none;
+        background: none;
+        color: var(--black);
+        text-decoration: underline;
+        cursor: pointer;
+        font-weight: 700;
+        padding: 0;
+      }
+      .checks {
+        margin-top: 14px;
+        border: 2px solid var(--orange);
+        border-radius: 14px;
+        padding: 12px;
+        font-size: 13px;
+      }
+      .checkrow {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        margin: 8px 0;
+      }
+      .checkrow input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+      }
+      a {
+        color: var(--black);
+      }
       .small {
         margin-top: 10px;
         font-size: 12px;
         opacity: 0.8;
+        text-align: center;
       }
-      a {
-        color: var(--black);
+      .divider {
+        height: 1px;
+        background: rgba(0,0,0,0.08);
+        margin: 14px 0;
       }
     </style>
   </head>
@@ -124,44 +144,111 @@
         <p id="subtitle">Login to continue.</p>
       </div>
 
-      <div class="tabs">
-        <button id="loginTab" class="tabbtn active" type="button">Login</button>
-        <button id="registerTab" class="tabbtn" type="button">Register</button>
+      <!-- LOGIN VIEW -->
+      <div id="loginView">
+        <form id="loginForm">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" autocomplete="email" required />
+
+          <label for="loginPassword">Password</label>
+          <input
+            id="loginPassword"
+            type="password"
+            autocomplete="current-password"
+            required
+          />
+
+          <div class="row">
+            <button id="loginBtn" class="btn" type="submit">Login</button>
+            <button id="logoutBtn" class="btn secondary" type="button" disabled>
+              Logout
+            </button>
+          </div>
+
+          <div id="loginMsg" class="msg" style="display: none;"></div>
+
+          <div class="link">
+            New user? <button id="openRegister" type="button">Register here</button>
+          </div>
+
+          <div class="small">
+            After login you’ll be redirected to
+            <strong>app.mog-academy.com/student_dashboard</strong>.
+          </div>
+        </form>
       </div>
 
-      <form id="authForm">
-        <label for="email">Email</label>
-        <input id="email" type="email" autocomplete="email" required />
+      <!-- REGISTER VIEW -->
+      <div id="registerView" style="display:none;">
+        <form id="registerForm">
+          <label for="fullName">Full name</label>
+          <input id="fullName" type="text" autocomplete="name" required />
 
-        <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          autocomplete="current-password"
-          required
-        />
+          <label for="username">Username</label>
+          <input id="username" type="text" autocomplete="username" required />
 
-        <div class="row">
-          <button id="submitBtn" class="btn" type="submit">Login</button>
-          <button id="logoutBtn" class="btn secondary" type="button" disabled>
-            Logout
-          </button>
-        </div>
+          <label for="regEmail">Email</label>
+          <input id="regEmail" type="email" autocomplete="email" required />
 
-        <div id="msg" class="msg" style="display: none;"></div>
+          <label for="regEmail2">Confirm email</label>
+          <input id="regEmail2" type="email" autocomplete="email" required />
 
-        <div class="small">
-          After login you’ll be redirected to
-          <strong>app.mog-academy.com/student_dashboard</strong>.
-        </div>
-      </form>
+          <label for="regPassword">Password</label>
+          <input
+            id="regPassword"
+            type="password"
+            autocomplete="new-password"
+            required
+          />
+
+          <label for="regPassword2">Confirm password</label>
+          <input
+            id="regPassword2"
+            type="password"
+            autocomplete="new-password"
+            required
+          />
+
+          <div class="checks">
+            <div class="checkrow">
+              <input id="agree" type="checkbox" />
+              <div>
+                I agree to the
+                <a href="/terms" target="_blank" rel="noopener">Terms & Conditions</a>
+                and
+                <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+                <strong>(required)</strong>
+              </div>
+            </div>
+
+            <div class="checkrow">
+              <input id="newsletter" type="checkbox" />
+              <div>
+                I want to receive the newsletter and stay up to date. (optional)
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <button id="registerBtn" class="btn" type="submit">Create account</button>
+            <button id="backToLogin" class="btn secondary" type="button">
+              Back to login
+            </button>
+          </div>
+
+          <div id="registerMsg" class="msg" style="display:none;"></div>
+
+          <div class="small">
+            Email verification is required. You’ll receive a verification email after signup.
+          </div>
+        </form>
+      </div>
     </div>
 
-    <!-- Supabase JS (browser) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-      // ====== Your Supabase credentials (safe for frontend) ======
+      // ===== Supabase (frontend-safe) =====
       const SUPABASE_URL = "https://yijcnkcaibspxbpvmzhd.supabase.co";
       const SUPABASE_ANON_KEY =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlpamNua2NhaWJzcHhicHZtemhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5MjQ0MDksImV4cCI6MjA4NDUwMDQwOX0.NqsgzQ8z9UKahVdbjXp9-yA2Y5F3yFveaF9mLzAXLl4";
@@ -171,143 +258,196 @@
 
       const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      // ====== UI state ======
-      let mode = "login"; // "login" | "register"
-
-      const loginTab = document.getElementById("loginTab");
-      const registerTab = document.getElementById("registerTab");
+      // ===== UI refs =====
       const subtitle = document.getElementById("subtitle");
-      const authForm = document.getElementById("authForm");
-      const emailEl = document.getElementById("email");
-      const passwordEl = document.getElementById("password");
-      const submitBtn = document.getElementById("submitBtn");
+
+      const loginView = document.getElementById("loginView");
+      const registerView = document.getElementById("registerView");
+
+      const loginForm = document.getElementById("loginForm");
+      const loginEmail = document.getElementById("loginEmail");
+      const loginPassword = document.getElementById("loginPassword");
+      const loginBtn = document.getElementById("loginBtn");
       const logoutBtn = document.getElementById("logoutBtn");
-      const msgBox = document.getElementById("msg");
+      const loginMsg = document.getElementById("loginMsg");
+      const openRegister = document.getElementById("openRegister");
 
-      function setMode(nextMode) {
-        mode = nextMode;
-        loginTab.classList.toggle("active", mode === "login");
-        registerTab.classList.toggle("active", mode === "register");
-        submitBtn.textContent = mode === "login" ? "Login" : "Register";
-        passwordEl.autocomplete = mode === "login" ? "current-password" : "new-password";
-        subtitle.textContent =
-          mode === "login"
-            ? "Login to continue."
-            : "Create your student account (email verification required).";
-        hideMsg();
+      const registerForm = document.getElementById("registerForm");
+      const fullName = document.getElementById("fullName");
+      const username = document.getElementById("username");
+      const regEmail = document.getElementById("regEmail");
+      const regEmail2 = document.getElementById("regEmail2");
+      const regPassword = document.getElementById("regPassword");
+      const regPassword2 = document.getElementById("regPassword2");
+      const agree = document.getElementById("agree");
+      const newsletter = document.getElementById("newsletter");
+      const registerBtn = document.getElementById("registerBtn");
+      const backToLogin = document.getElementById("backToLogin");
+      const registerMsg = document.getElementById("registerMsg");
+
+      function show(el) { el.style.display = "block"; }
+      function hide(el) { el.style.display = "none"; }
+
+      function showLogin() {
+        subtitle.textContent = "Login to continue.";
+        show(loginView);
+        hide(registerView);
+        hideMsg(loginMsg);
       }
 
-      function showMsg(text) {
-        msgBox.style.display = "block";
-        msgBox.textContent = text;
+      function showRegister() {
+        subtitle.textContent = "Create your student account.";
+        hide(loginView);
+        show(registerView);
+        hideMsg(registerMsg);
       }
 
-      function hideMsg() {
-        msgBox.style.display = "none";
-        msgBox.textContent = "";
+      function showMsg(box, text) {
+        box.textContent = text;
+        show(box);
       }
 
-      function setLoading(isLoading) {
-        submitBtn.disabled = isLoading;
-        logoutBtn.disabled = isLoading || !logoutBtn.dataset.enabled;
-        submitBtn.textContent = isLoading
-          ? "Please wait..."
-          : mode === "login"
-          ? "Login"
-          : "Register";
+      function hideMsg(box) {
+        box.textContent = "";
+        hide(box);
       }
 
-      loginTab.addEventListener("click", () => setMode("login"));
-      registerTab.addEventListener("click", () => setMode("register"));
+      function setLoading(btn, isLoading, label) {
+        btn.disabled = isLoading;
+        btn.textContent = isLoading ? "Please wait..." : label;
+      }
 
-      // ====== Session helpers ======
+      openRegister.addEventListener("click", showRegister);
+      backToLogin.addEventListener("click", showLogin);
+
+      // ===== LOGIN =====
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideMsg(loginMsg);
+
+        const email = (loginEmail.value || "").trim();
+        const password = loginPassword.value || "";
+
+        if (!email || !password) {
+          showMsg(loginMsg, "Please enter email and password.");
+          return;
+        }
+
+        setLoading(loginBtn, true, "Login");
+
+        try {
+          const { error } = await supabase.auth.signInWithPassword({ email, password });
+          if (error) throw error;
+
+          showMsg(loginMsg, "Login successful. Redirecting...");
+          window.location.href = REDIRECT_AFTER_LOGIN;
+        } catch (err) {
+          showMsg(loginMsg, err?.message || "Login failed.");
+        } finally {
+          setLoading(loginBtn, false, "Login");
+        }
+      });
+
+      // ===== LOGOUT =====
+      logoutBtn.addEventListener("click", async () => {
+        hideMsg(loginMsg);
+        logoutBtn.disabled = true;
+
+        try {
+          const { error } = await supabase.auth.signOut();
+          if (error) throw error;
+          showMsg(loginMsg, "Logged out.");
+        } catch (err) {
+          showMsg(loginMsg, err?.message || "Logout failed.");
+        } finally {
+          await refreshSessionUI();
+        }
+      });
+
       async function refreshSessionUI() {
         const { data } = await supabase.auth.getSession();
         const session = data.session;
 
         if (session && session.user) {
-          logoutBtn.dataset.enabled = "true";
           logoutBtn.disabled = false;
-          showMsg(`Logged in as: ${session.user.email}\nRedirecting...`);
-          // Redirect quickly; you can comment this line if you want to stay on this page
-          window.location.href = REDIRECT_AFTER_LOGIN;
         } else {
-          logoutBtn.dataset.enabled = "";
           logoutBtn.disabled = true;
         }
       }
 
-      // ====== Auth actions ======
-      authForm.addEventListener("submit", async (e) => {
+      // ===== REGISTER =====
+      registerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        hideMsg();
+        hideMsg(registerMsg);
 
-        const email = (emailEl.value || "").trim();
-        const password = passwordEl.value || "";
+        const nameVal = (fullName.value || "").trim();
+        const userVal = (username.value || "").trim();
+        const email1 = (regEmail.value || "").trim();
+        const email2 = (regEmail2.value || "").trim();
+        const pass1 = regPassword.value || "";
+        const pass2 = regPassword2.value || "";
 
-        if (!email || !password) {
-          showMsg("Please enter email and password.");
+        if (!nameVal || !userVal || !email1 || !email2 || !pass1 || !pass2) {
+          showMsg(registerMsg, "Please fill all fields.");
           return;
         }
 
-        setLoading(true);
+        if (email1.toLowerCase() !== email2.toLowerCase()) {
+          showMsg(registerMsg, "Emails do not match.");
+          return;
+        }
+
+        if (pass1 !== pass2) {
+          showMsg(registerMsg, "Passwords do not match.");
+          return;
+        }
+
+        if (!agree.checked) {
+          showMsg(registerMsg, "You must agree to the Terms & Conditions and Privacy Policy.");
+          return;
+        }
+
+        setLoading(registerBtn, true, "Create account");
 
         try {
-          if (mode === "register") {
-            const { error } = await supabase.auth.signUp({
-              email,
-              password,
-              options: {
-                emailRedirectTo: EMAIL_VERIFY_REDIRECT,
+          // Store full_name + username + newsletter in user metadata
+          const { error } = await supabase.auth.signUp({
+            email: email1,
+            password: pass1,
+            options: {
+              emailRedirectTo: EMAIL_VERIFY_REDIRECT,
+              data: {
+                full_name: nameVal,
+                username: userVal,
+                newsletter_opt_in: !!newsletter.checked,
               },
-            });
-            if (error) throw error;
+            },
+          });
 
-            showMsg(
-              "Account created.\nCheck your email to verify your account.\nAfter verifying, come back here and login."
-            );
-          } else {
-            const { error } = await supabase.auth.signInWithPassword({
-              email,
-              password,
-            });
-            if (error) throw error;
-
-            await refreshSessionUI();
-          }
-        } catch (err) {
-          const message =
-            (err && err.message) ? err.message : "Something went wrong.";
-          showMsg(message);
-        } finally {
-          setLoading(false);
-        }
-      });
-
-      logoutBtn.addEventListener("click", async () => {
-        hideMsg();
-        setLoading(true);
-        try {
-          const { error } = await supabase.auth.signOut();
           if (error) throw error;
-          showMsg("Logged1 out.");
+
+          showMsg(
+            registerMsg,
+            "Registration successful.\nPlease check your email to verify your account.\nAfter verification, come back here and login."
+          );
+
+          // Clear form and return to login after a short pause
+          setTimeout(() => {
+            registerForm.reset();
+            showLogin();
+            showMsg(loginMsg, "Account created. Please login after verifying your email.");
+          }, 1200);
         } catch (err) {
-          showMsg(err?.message || "Logout failed.");
+          showMsg(registerMsg, err?.message || "Registration failed.");
         } finally {
-          setLoading(false);
-          await refreshSessionUI();
+          setLoading(registerBtn, false, "Create account");
         }
       });
 
-      // Keep UI in sync if session changes in another tab
-      supabase.auth.onAuthStateChange((_event, _session) => {
-        // If logged in, redirect; if logged out, just update UI
-        refreshSessionUI();
-      });
-
-      // Initial mode and session check
-      setMode("login");
+      // initial
+      showLogin();
       refreshSessionUI();
+      supabase.auth.onAuthStateChange(() => refreshSessionUI());
     </script>
   </body>
 </html>
