@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mo.G Academy | Login</title>
     <style>
-      :root { --orange:#ff7a00; --black:#111; --bg:#fff; --radius:18px; }
+      :root { --orange:#ff7a00; --black:#111; --bg:#fff; --radius:18px; --muted:#7a7a7a; --good:#1f8b3a; --bad:#c62828; }
       body{
         margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
         background:var(--bg); color:var(--black); min-height:100vh;
@@ -17,13 +17,27 @@
       .banner{ border:2px solid var(--orange); border-radius:var(--radius);
         padding:12px 14px; margin-bottom:14px;
       }
-      h1{ margin:0 0 6px 0; font-size:22px; }
+      .brandRow{ display:flex; align-items:center; gap:10px; }
+      .brandRow img{ width:34px; height:34px; object-fit:contain; }
+      h1{ margin:0 0 2px 0; font-size:22px; }
       p{ margin:0; font-size:14px; line-height:1.5; }
+
       label{ display:block; font-size:13px; margin:12px 0 6px 0; }
+
+      .inputWrap{ position:relative; }
       input{
         width:100%; border:2px solid var(--orange); border-radius:14px;
-        padding:10px 12px; font-size:14px; box-sizing:border-box; outline:none;
+        padding:10px 44px 10px 12px; font-size:14px; box-sizing:border-box; outline:none;
       }
+      input.noIcon{ padding-right:12px; }
+
+      .togglePass{
+        position:absolute; right:10px; top:50%; transform:translateY(-50%);
+        width:26px; height:26px; border:none; background:transparent; cursor:pointer;
+        display:flex; align-items:center; justify-content:center; padding:0;
+      }
+      .togglePass img{ width:20px; height:20px; opacity:0.75; }
+
       .btn{
         border:2px solid var(--orange); background:var(--orange); color:#fff;
         border-radius:14px; padding:10px 12px; cursor:pointer;
@@ -32,21 +46,34 @@
       .btn.secondary{ background:transparent; color:var(--black); }
       .btn:disabled{ opacity:.6; cursor:not-allowed; }
       .row{ display:grid; gap:10px; margin-top:16px; }
+
       .msg{
         margin-top:14px; border:2px solid var(--orange); border-radius:14px;
         padding:10px 12px; font-size:13px; white-space:pre-wrap;
       }
+
+      .hint{
+        margin-top:6px;
+        font-size:12px;
+        color:var(--muted);
+        line-height:1.35;
+      }
+      .hint.good{ color:var(--good); }
+      .hint.bad{ color:var(--bad); }
+
       .link{ margin-top:14px; font-size:13px; text-align:center; }
       .link button{
         border:none; background:none; color:var(--black); text-decoration:underline;
         cursor:pointer; font-weight:700; padding:0;
       }
+
       .checks{
         margin-top:14px; border:2px solid var(--orange);
         border-radius:14px; padding:12px; font-size:13px;
       }
       .checkrow{ display:flex; gap:10px; align-items:flex-start; margin:8px 0; }
       .checkrow input[type="checkbox"]{ width:18px; height:18px; margin-top:2px; }
+
       a{ color:var(--black); }
       .small{ margin-top:10px; font-size:12px; opacity:.8; text-align:center; }
     </style>
@@ -55,18 +82,30 @@
   <body>
     <div class="card">
       <div class="banner">
-        <h1>Mo.G Academy</h1>
-        <p id="subtitle">Login to continue.</p>
+        <div class="brandRow">
+          <img src="/images/logo.png" alt="Mo.G Academy Logo" />
+          <div>
+            <h1>Mo.G Academy</h1>
+            <p id="subtitle">Student Login</p>
+          </div>
+        </div>
       </div>
 
       <!-- LOGIN VIEW -->
       <div id="loginView">
         <form id="loginForm">
           <label for="loginEmail">Email</label>
-          <input id="loginEmail" type="email" autocomplete="email" required />
+          <div class="inputWrap">
+            <input id="loginEmail" class="noIcon" type="email" autocomplete="email" required />
+          </div>
 
           <label for="loginPassword">Password</label>
-          <input id="loginPassword" type="password" autocomplete="current-password" required />
+          <div class="inputWrap">
+            <input id="loginPassword" type="password" autocomplete="current-password" required />
+            <button class="togglePass" id="toggleLoginPass" type="button" aria-label="Show password">
+              <img id="toggleLoginPassIcon" src="/images/showpass.svg" alt="" />
+            </button>
+          </div>
 
           <div class="row">
             <button id="loginBtn" class="btn" type="submit">Login</button>
@@ -89,22 +128,44 @@
       <div id="registerView" style="display:none;">
         <form id="registerForm">
           <label for="fullName">Full name</label>
-          <input id="fullName" type="text" autocomplete="name" required />
+          <div class="inputWrap">
+            <input id="fullName" class="noIcon" type="text" autocomplete="name" required />
+          </div>
 
           <label for="username">Username</label>
-          <input id="username" type="text" autocomplete="username" required />
+          <div class="inputWrap">
+            <input id="username" class="noIcon" type="text" autocomplete="username" required />
+          </div>
+          <div id="usernameHint" class="hint" style="display:none;"></div>
 
           <label for="regEmail">Email</label>
-          <input id="regEmail" type="email" autocomplete="email" required />
+          <div class="inputWrap">
+            <input id="regEmail" class="noIcon" type="email" autocomplete="email" required />
+          </div>
 
           <label for="regEmail2">Confirm email</label>
-          <input id="regEmail2" type="email" autocomplete="email" required />
+          <div class="inputWrap">
+            <input id="regEmail2" class="noIcon" type="email" autocomplete="email" required />
+          </div>
+          <div id="emailHint" class="hint" style="display:none;"></div>
 
           <label for="regPassword">Password</label>
-          <input id="regPassword" type="password" autocomplete="new-password" required />
+          <div class="inputWrap">
+            <input id="regPassword" type="password" autocomplete="new-password" required />
+            <button class="togglePass" id="toggleRegPass" type="button" aria-label="Show password">
+              <img id="toggleRegPassIcon" src="/images/showpass.svg" alt="" />
+            </button>
+          </div>
+          <div id="passHint" class="hint" style="display:none;"></div>
 
           <label for="regPassword2">Confirm password</label>
-          <input id="regPassword2" type="password" autocomplete="new-password" required />
+          <div class="inputWrap">
+            <input id="regPassword2" type="password" autocomplete="new-password" required />
+            <button class="togglePass" id="toggleRegPass2" type="button" aria-label="Show password">
+              <img id="toggleRegPass2Icon" src="/images/showpass.svg" alt="" />
+            </button>
+          </div>
+          <div id="pass2Hint" class="hint" style="display:none;"></div>
 
           <div class="checks">
             <div class="checkrow">
@@ -163,14 +224,14 @@
       }
 
       function showLogin(){
-        subtitle.textContent = "Login to continue.";
+        subtitle.textContent = "Student Login";
         show(loginView);
         hide(registerView);
         hideMsg(registerMsg);
       }
 
       function showRegister(){
-        subtitle.textContent = "Create your student account.";
+        subtitle.textContent = "Create your student account";
         hide(loginView);
         show(registerView);
         hideMsg(loginMsg);
@@ -190,14 +251,11 @@
         });
       }
 
-      async function initSupabaseAndAuth(){
-        // Try jsDelivr then unpkg
-        try {
-          await loadScript("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2");
-        } catch {
-          try {
-            await loadScript("https://unpkg.com/@supabase/supabase-js@2");
-          } catch {
+      async function initSupabase(){
+        try { await loadScript("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"); }
+        catch {
+          try { await loadScript("https://unpkg.com/@supabase/supabase-js@2"); }
+          catch {
             showMsg(loginMsg, "Supabase library failed to load. Please refresh or try again later.");
             return null;
           }
@@ -215,19 +273,60 @@
         return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       }
 
+      // ===== Helpers for live validation UI =====
+      function setHint(el, text, kind){ // kind: "good" | "bad" | ""
+        if (!text) { el.style.display = "none"; el.textContent = ""; el.className = "hint"; return; }
+        el.style.display = "block";
+        el.textContent = text;
+        el.className = "hint" + (kind ? " " + kind : "");
+      }
+
+      function hasUppercase(s){ return /[A-Z]/.test(s); }
+      function hasSpecial(s){ return /[^A-Za-z0-9]/.test(s); }
+
+      function passwordStatus(pass){
+        const lenOk = pass.length >= 8; // required
+        const upperOk = hasUppercase(pass); // optional
+        const specialOk = hasSpecial(pass); // optional
+        return { lenOk, upperOk, specialOk };
+      }
+
+      function normalizeUsername(u){
+        return (u || "").trim();
+      }
+
+      function debounce(fn, ms){
+        let t;
+        return (...args) => {
+          clearTimeout(t);
+          t = setTimeout(() => fn(...args), ms);
+        };
+      }
+
+      function setupShowPassword(inputEl, btnEl, iconEl){
+        let shown = false;
+        btnEl.addEventListener("click", () => {
+          shown = !shown;
+          inputEl.type = shown ? "text" : "password";
+          iconEl.src = shown ? "/images/showpass_on.svg" : "/images/showpass.svg";
+        });
+      }
+
       // ===== Auth handlers (only after Supabase is ready) =====
       (async () => {
-        const supabase = await initSupabaseAndAuth();
+        const supabase = await initSupabase();
         if (!supabase) return;
 
         const REDIRECT_AFTER_LOGIN = "https://app.mog-academy.com/student_dashboard";
         const EMAIL_VERIFY_REDIRECT = "https://mog-academy.com/login/";
 
+        // Login refs
         const loginForm = document.getElementById("loginForm");
         const loginEmail = document.getElementById("loginEmail");
         const loginPassword = document.getElementById("loginPassword");
         const loginBtn = document.getElementById("loginBtn");
 
+        // Register refs
         const registerForm = document.getElementById("registerForm");
         const fullName = document.getElementById("fullName");
         const username = document.getElementById("username");
@@ -239,11 +338,125 @@
         const newsletter = document.getElementById("newsletter");
         const registerBtn = document.getElementById("registerBtn");
 
+        const usernameHint = document.getElementById("usernameHint");
+        const emailHint = document.getElementById("emailHint");
+        const passHint = document.getElementById("passHint");
+        const pass2Hint = document.getElementById("pass2Hint");
+
+        // Show password icons
+        setupShowPassword(
+          loginPassword,
+          document.getElementById("toggleLoginPass"),
+          document.getElementById("toggleLoginPassIcon")
+        );
+        setupShowPassword(
+          regPassword,
+          document.getElementById("toggleRegPass"),
+          document.getElementById("toggleRegPassIcon")
+        );
+        setupShowPassword(
+          regPassword2,
+          document.getElementById("toggleRegPass2"),
+          document.getElementById("toggleRegPass2Icon")
+        );
+
         function setLoading(btn, isLoading, label){
           btn.disabled = isLoading;
           btn.textContent = isLoading ? "Please wait..." : label;
         }
 
+        // ===== Live validation state =====
+        let usernameAvailable = false;
+
+        const checkUsername = debounce(async () => {
+          const u = normalizeUsername(username.value);
+
+          if (u.length < 3) {
+            usernameAvailable = false;
+            setHint(usernameHint, "Username must be at least 3 characters.", "bad");
+            return;
+          }
+
+          // Basic allowed chars hint (not blocking)
+          if (!/^[a-zA-Z0-9._-]+$/.test(u)) {
+            usernameAvailable = false;
+            setHint(usernameHint, "Use only letters, numbers, dot, underscore, or dash.", "bad");
+            return;
+          }
+
+          setHint(usernameHint, "Checking availability...", "");
+
+          try {
+            const { data, error } = await supabase.rpc("is_username_available", { p_username: u });
+            if (error) throw error;
+
+            usernameAvailable = !!data;
+            if (usernameAvailable) {
+              setHint(usernameHint, "Available", "good");
+            } else {
+              setHint(usernameHint, "Username not available", "bad");
+            }
+          } catch (e) {
+            usernameAvailable = false;
+            setHint(usernameHint, "Could not check username right now.", "bad");
+          }
+        }, 350);
+
+        username.addEventListener("input", () => {
+          setHint(usernameHint, "", "");
+          usernameAvailable = false;
+          checkUsername();
+        });
+
+        function validateEmailsLive(){
+          const e1 = (regEmail.value || "").trim();
+          const e2 = (regEmail2.value || "").trim();
+          if (!e1 && !e2) { setHint(emailHint, "", ""); return; }
+          if (!e2) { setHint(emailHint, "Confirm your email to match.", ""); return; }
+          if (e1.toLowerCase() === e2.toLowerCase()) {
+            setHint(emailHint, "Emails match", "good");
+          } else {
+            setHint(emailHint, "Emails do not match", "bad");
+          }
+        }
+
+        regEmail.addEventListener("input", validateEmailsLive);
+        regEmail2.addEventListener("input", validateEmailsLive);
+
+        function validatePasswordLive(){
+          const p = regPassword.value || "";
+          const s = passwordStatus(p);
+
+          const lines = [];
+          // required
+          lines.push(`${s.lenOk ? "✓" : "✗"} At least 8 characters (required)`);
+          // optional
+          lines.push(`${s.upperOk ? "✓" : "•"} Include 1 uppercase letter (optional)`);
+          lines.push(`${s.specialOk ? "✓" : "•"} Include 1 special character (optional)`);
+
+          const kind = s.lenOk ? "" : "bad";
+          setHint(passHint, lines.join("\n"), kind);
+
+          validatePasswordMatchLive();
+        }
+
+        function validatePasswordMatchLive(){
+          const p1 = regPassword.value || "";
+          const p2 = regPassword2.value || "";
+
+          if (!p2 && !p1) { setHint(pass2Hint, "", ""); return; }
+          if (!p2) { setHint(pass2Hint, "Confirm your password.", ""); return; }
+          if (p1 === p2) {
+            setHint(pass2Hint, "Passwords match", "good");
+          } else {
+            setHint(pass2Hint, "Passwords do not match", "bad");
+          }
+        }
+
+        regPassword.addEventListener("input", validatePasswordLive);
+        regPassword2.addEventListener("input", validatePasswordMatchLive);
+
+        // ===== LOGIN submit =====
         loginForm.addEventListener("submit", async (e) => {
           e.preventDefault();
           hideMsg(loginMsg);
@@ -271,17 +484,19 @@
           }
         });
 
+        // ===== REGISTER submit (still validates hard rules) =====
         registerForm.addEventListener("submit", async (e) => {
           e.preventDefault();
           hideMsg(registerMsg);
 
           const nameVal = (fullName.value || "").trim();
-          const userVal = (username.value || "").trim();
+          const userVal = normalizeUsername(username.value);
           const email1 = (regEmail.value || "").trim();
           const email2 = (regEmail2.value || "").trim();
           const pass1 = regPassword.value || "";
           const pass2 = regPassword2.value || "";
 
+          // Live validation already guides; we enforce required parts here:
           if (!nameVal || !userVal || !email1 || !email2 || !pass1 || !pass2) {
             showMsg(registerMsg, "Please fill all fields.");
             return;
@@ -290,12 +505,20 @@
             showMsg(registerMsg, "Emails do not match.");
             return;
           }
+          if (pass1.length < 8) {
+            showMsg(registerMsg, "Password must be at least 8 characters.");
+            return;
+          }
           if (pass1 !== pass2) {
             showMsg(registerMsg, "Passwords do not match.");
             return;
           }
           if (!agree.checked) {
             showMsg(registerMsg, "You must agree to the Terms & Conditions and Privacy Policy.");
+            return;
+          }
+          if (!usernameAvailable) {
+            showMsg(registerMsg, "Please choose an available username.");
             return;
           }
 
@@ -323,6 +546,11 @@
 
             setTimeout(() => {
               registerForm.reset();
+              usernameAvailable = false;
+              setHint(usernameHint, "", "");
+              setHint(emailHint, "", "");
+              setHint(passHint, "", "");
+              setHint(pass2Hint, "", "");
               showLogin();
               showMsg(loginMsg, "Account created. Please login after verifying your email.");
             }, 900);
@@ -333,6 +561,7 @@
           }
         });
 
+        // Initial view
         showLogin();
       })();
     </script>
