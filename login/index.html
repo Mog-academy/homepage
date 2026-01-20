@@ -290,7 +290,7 @@
         try {
           const { error } = await supabase.auth.signOut();
           if (error) throw error;
-          showMsg("Logged out.");
+          showMsg("Logged1 out.");
         } catch (err) {
           showMsg(err?.message || "Logout failed.");
         } finally {
