@@ -97,7 +97,7 @@
       <div class="banner">
         <div class="brandRow">
           <a href="https://mog-academy.com" aria-label="Go to Mo.G Academy homepage">
-            <img src="/images/logo.png" alt="Mo.G Academy Logo" />
+            <img src="/login/images/logo.png" alt="Mo.G Academy Logo" />
             <div>
               <h1>Mo.G Academy</h1>
               <p id="subtitle">Student Login</p>
@@ -118,7 +118,7 @@
           <div class="inputWrap">
             <input id="loginPassword" type="password" autocomplete="current-password" required />
             <button class="togglePass" id="toggleLoginPass" type="button" aria-label="Show password">
-              <img id="toggleLoginPassIcon" src="/images/showpass.svg" alt="" />
+              <img id="toggleLoginPassIcon" src="login/images/showpass.svg" alt="" />
             </button>
           </div>
 
@@ -168,7 +168,7 @@
             <input id="regPassword" type="password" autocomplete="new-password" required />
             <!-- One toggle controls BOTH password fields -->
             <button class="togglePass" id="toggleRegPassBoth" type="button" aria-label="Show password">
-              <img id="toggleRegPassBothIcon" src="/images/showpass.svg" alt="" />
+              <img id="toggleRegPassBothIcon" src="loginlogin/images/showpass.svg" alt="" />
             </button>
           </div>
           <div id="passRules" class="rules" style="display:none;"></div>
@@ -238,7 +238,7 @@
           <div class="inputWrap">
             <input id="newPass" type="password" autocomplete="new-password" required />
             <button class="togglePass" id="toggleResetPassBoth" type="button" aria-label="Show password">
-              <img id="toggleResetPassBothIcon" src="/images/showpass.svg" alt="" />
+              <img id="toggleResetPassBothIcon" src="login/images/showpass.svg" alt="" />
             </button>
           </div>
           <div id="resetRules" class="rules" style="display:none;"></div>
@@ -402,7 +402,7 @@
           const type = shown ? "text" : "password";
           field1.type = type;
           field2.type = type;
-          icon.src = shown ? "/images/showpass_on.svg" : "/images/showpass.svg";
+          icon.src = shown ? "loginlogin/images/showpass_on.svg" : "login/images/showpass.svg";
         });
       }
 
@@ -458,7 +458,7 @@
           toggleLoginPass.addEventListener("click", () => {
             shown = !shown;
             loginPassword.type = shown ? "text" : "password";
-            toggleLoginPassIcon.src = shown ? "/images/showpass_on.svg" : "/images/showpass.svg";
+            toggleLoginPassIcon.src = shown ? "login/images/showpass_on.svg" : "login/images/showpass.svg";
           });
         })();
 
