@@ -143,13 +143,14 @@
       border-color: rgba(243,154,31,.35);
     }
 
-    .course .thumb{
-      width:100%;
-      height: 118px;
-      object-fit: cover;
-      display:block;
-      background: #fafafa;
-    }
+   .course .thumb{
+  width: 100%;
+  height: auto;              /* Let image keep its natural height */
+  aspect-ratio: 16 / 9;      /* Keeps cards consistent in size */
+  object-fit: contain;      /* Fit entire image, no cropping */
+  display: block;
+  background: #fafafa;
+}
 
     .course .footer{
       padding: 9px 10px 10px;
