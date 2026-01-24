@@ -30,9 +30,7 @@
         radial-gradient(900px 520px at 70% 110%, rgba(255,255,255,.10), transparent 60%),
         linear-gradient(180deg, rgba(243,154,31,.95), rgba(243,154,31,.88));
 
-      /* ✅ Use dynamic viewport height (fixes Chrome UI cropping) */
       min-height: 100dvh;
-
       display:flex;
       align-items:center;
       justify-content:center;
@@ -45,18 +43,12 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-
-      /* ✅ Never crop: if height is tight, scroll INSIDE the white box */
       max-height: calc(100dvh - 36px);
       overflow: auto;
-
-      /* Optional: smoother feel */
       -webkit-overflow-scrolling: touch;
     }
 
-    .inner{
-      padding: 16px 18px 14px;
-    }
+    .inner{ padding: 16px 18px 14px; }
 
     .top{
       display:flex;
@@ -143,14 +135,14 @@
       border-color: rgba(243,154,31,.35);
     }
 
-   .course .thumb{
-  width: 100%;
-  height: auto;              /* Let image keep its natural height */
-  aspect-ratio: 1 / 1;      /* Keeps cards consistent in size */
-  object-fit: contain;      /* Fit entire image, no cropping */
-  display: block;
-  background: #fafafa;
-}
+    .course .thumb{
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      display: block;
+      background: #fafafa;
+    }
 
     .course .footer{
       padding: 9px 10px 10px;
@@ -246,19 +238,10 @@
       display:block;
     }
 
-    /* Mobile: stack courses */
     @media (max-width: 860px){
-      body{
-        display:block;
-        padding: 16px;
-      }
-      .page{
-        margin: 16px auto;
-        max-height: none;
-      }
-      .courses{
-        grid-template-columns: 1fr;
-      }
+      body{ display:block; padding: 16px; }
+      .page{ margin: 16px auto; max-height: none; }
+      .courses{ grid-template-columns: 1fr; }
       .course .thumb{ height: 170px; }
       .logo img{ width: min(340px, 86%); }
     }
@@ -269,48 +252,46 @@
   <main class="page">
     <div class="inner">
       <header class="top">
-       <nav class="nav" aria-label="Primary navigation">
-  <a href="howsoon.html">How soon</a>
-  <a href="about.html">About</a>
-  <a href="features.html">Features</a>
-  <a href="https://mog-academy.com/login">Login / Register</a>
-</nav>
-
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="howsoon.html">How soon</a>
+          <a href="about.html">About</a>
+          <a href="features.html">Features</a>
+          <a href="https://mog-academy.com/login">Login / Register</a>
+        </nav>
       </header>
 
       <section class="hero">
         <div class="logo">
           <img src="logo.png" alt="Mo.G Academy logo" />
         </div>
-
         <p class="coming-anim">coming soon...</p>
         <p class="sub">Online courses for 3D software, architectural visualization, CGI, and production-ready workflows.</p>
       </section>
 
       <section class="courses" aria-label="Upcoming courses">
-        <article class="course" data-href="interest.html" role="link" aria-label="Designing for Luxury: Interiors, Brands and Spaces: register your interest">
+        <article class="course" data-href="interest.html">
           <img class="thumb" src="course1.png" alt="Course 1 preview" />
           <div class="footer">
             <span class="pill">Coming Soon</span>
-            <span class="pill muted">Course 1</span>
+            <span class="pill muted" data-course-index="0"></span>
           </div>
           <div class="overlay"><span>Register your interest</span></div>
         </article>
 
-        <article class="course" data-href="interest.html" role="link" aria-label="Course 2: register your interest">
+        <article class="course" data-href="interest.html">
           <img class="thumb" src="course2.png" alt="Course 2 preview" />
           <div class="footer">
             <span class="pill">Coming Soon</span>
-            <span class="pill muted">Course 2</span>
+            <span class="pill muted" data-course-index="1"></span>
           </div>
           <div class="overlay"><span>Register your interest</span></div>
         </article>
 
-        <article class="course" data-href="interest.html" role="link" aria-label="Course 3: register your interest">
+        <article class="course" data-href="interest.html">
           <img class="thumb" src="course3.png" alt="Course 3 preview" />
           <div class="footer">
             <span class="pill">Coming Soon</span>
-            <span class="pill muted">Course 3</span>
+            <span class="pill muted" data-course-index="2"></span>
           </div>
           <div class="overlay"><span>Register your interest</span></div>
         </article>
@@ -322,25 +303,32 @@
         </div>
 
         <div class="social" aria-label="Social media links">
-          <a id="social-instagram" href="#" target="_blank" rel="noopener" aria-label="Instagram">
-            <img src="insta.png" alt="Instagram" />
-          </a>
-          <a id="social-linkedin" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <img src="linkedin.png" alt="LinkedIn" />
-          </a>
-          <a id="social-youtube" href="#" target="_blank" rel="noopener" aria-label="YouTube">
-            <img src="youtube.png" alt="YouTube" />
-          </a>
-          <a id="social-tiktok" href="#" target="_blank" rel="noopener" aria-label="TikTok">
-            <img src="tiktok.png" alt="TikTok" />
-          </a>
+          <a id="social-instagram" href="#" target="_blank"><img src="insta.png" alt="Instagram" /></a>
+          <a id="social-linkedin" href="#" target="_blank"><img src="linkedin.png" alt="LinkedIn" /></a>
+          <a id="social-youtube" href="#" target="_blank"><img src="youtube.png" alt="YouTube" /></a>
+          <a id="social-tiktok" href="#" target="_blank"><img src="tiktok.png" alt="TikTok" /></a>
         </div>
       </footer>
     </div>
   </main>
 
   <script>
-    // ✅ Edit these URLs in ONE place later:
+    // ✅ Edit course names here
+    const COURSE_TITLES = [
+      "Designing for Luxury: Interiors, Brands and Spaces",
+      "Render to Revenue: The ArchViz Business Blueprint",
+      "Mastering Office Fit-Outs"
+    ];
+
+    // Inject course titles
+    document.querySelectorAll(".pill.muted").forEach(el => {
+      const index = parseInt(el.dataset.courseIndex, 10);
+      if (COURSE_TITLES[index]) {
+        el.textContent = COURSE_TITLES[index];
+      }
+    });
+
+    // Social links
     const SOCIAL_LINKS = {
       instagram: "https://instagram.com/YOUR_HANDLE",
       linkedin:  "https://linkedin.com/in/YOUR_PROFILE",
@@ -353,7 +341,7 @@
     document.getElementById("social-youtube").href   = SOCIAL_LINKS.youtube;
     document.getElementById("social-tiktok").href    = SOCIAL_LINKS.tiktok;
 
-    // Course cards: click → interest.html
+    // Card click behavior
     document.querySelectorAll(".course").forEach(card => {
       const href = card.getAttribute("data-href") || "interest.html";
 
@@ -361,7 +349,6 @@
         window.location.href = href;
       });
 
-      // Keyboard accessibility (Enter/Space)
       card.tabIndex = 0;
       card.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
