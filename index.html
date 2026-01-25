@@ -144,12 +144,14 @@
       background: #fafafa;
     }
 
+    /* ✅ FIX: let titles wrap and never get clipped */
     .course .footer{
       padding: 9px 10px 10px;
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 8px;
     }
 
     .pill{
@@ -161,12 +163,18 @@
       font-size: 12px;
       white-space:nowrap;
     }
+
+    /* ✅ FIX: allow multi-line course titles */
     .pill.muted{
       border-color:transparent;
       background:transparent;
       color:var(--muted);
       font-weight:600;
-      padding-right: 0;
+      padding: 0;
+      white-space: normal;   /* allow wrapping */
+      line-height: 1.25;
+      font-size: 12.5px;
+      max-width: 100%;
     }
 
     .overlay{
@@ -303,10 +311,10 @@
         </div>
 
         <div class="social" aria-label="Social media links">
-          <a id="social-instagram" href="#" target="_blank"><img src="insta.png" alt="Instagram" /></a>
-          <a id="social-linkedin" href="#" target="_blank"><img src="linkedin.png" alt="LinkedIn" /></a>
-          <a id="social-youtube" href="#" target="_blank"><img src="youtube.png" alt="YouTube" /></a>
-          <a id="social-tiktok" href="#" target="_blank"><img src="tiktok.png" alt="TikTok" /></a>
+          <a id="social-instagram" href="#" target="_blank" rel="noopener"><img src="insta.png" alt="Instagram" /></a>
+          <a id="social-linkedin" href="#" target="_blank" rel="noopener"><img src="linkedin.png" alt="LinkedIn" /></a>
+          <a id="social-youtube" href="#" target="_blank" rel="noopener"><img src="youtube.png" alt="YouTube" /></a>
+          <a id="social-tiktok" href="#" target="_blank" rel="noopener"><img src="tiktok.png" alt="TikTok" /></a>
         </div>
       </footer>
     </div>
@@ -328,12 +336,12 @@
       }
     });
 
-    // Social links
+    // ✅ Social links (updated)
     const SOCIAL_LINKS = {
-      instagram: "https://instagram.com/YOUR_HANDLE",
-      linkedin:  "https://linkedin.com/in/YOUR_PROFILE",
-      youtube:   "https://youtube.com/@YOUR_CHANNEL",
-      tiktok:    "https://tiktok.com/@YOUR_HANDLE"
+      instagram: "https://www.instagram.com/mo.g_academy/",
+      linkedin:  "https://www.linkedin.com/company/mog-academy/",
+      youtube:   "https://www.youtube.com/@mo.gacademy",
+      tiktok:    "#" // keep as-is (no link provided)
     };
 
     document.getElementById("social-instagram").href = SOCIAL_LINKS.instagram;
